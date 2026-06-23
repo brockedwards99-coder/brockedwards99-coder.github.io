@@ -216,25 +216,64 @@
   }
   .nav{
     max-width:1200px;margin:0 auto;padding:16px 28px;
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
   }
-  .logo{display:flex;align-items:center;gap:13px;text-decoration:none;}
+  .logo{display:flex;align-items:center;gap:13px;text-decoration:none;min-width:0;}
   .logo-mark{
-    width:44px;height:44px;background:var(--green);color:var(--paper);
+    width:44px;height:44px;flex-shrink:0;background:var(--green);color:var(--paper);
     display:flex;align-items:center;justify-content:center;
     font-family:'Newsreader',serif;font-size:1.35rem;border-radius:3px;
   }
-  .logo-txt .l1{font-family:'Newsreader',serif;font-size:1.18rem;color:var(--ink);line-height:1.1;}
-  .logo-txt .l2{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-top:3px;}
+  .logo-txt{min-width:0;}
+  .logo-txt .l1{font-family:'Newsreader',serif;font-size:1.18rem;color:var(--ink);line-height:1.1;white-space:nowrap;}
+  .logo-txt .l2{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:3px;white-space:nowrap;}
+  .nav-right{display:flex;align-items:center;gap:34px;}
   .nav-menu{display:flex;align-items:center;gap:34px;list-style:none;}
-  .nav-menu a{font-size:.82rem;font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s;letter-spacing:.01em;}
+  .nav-menu a{font-size:.82rem;font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s;letter-spacing:.01em;white-space:nowrap;}
   .nav-menu a:hover{color:var(--green);}
   .nav-call{
     background:var(--green);color:var(--paper)!important;padding:11px 22px;border-radius:3px;
-    font-weight:600!important;font-size:.8rem!important;transition:background .25s;
+    font-weight:600!important;font-size:.8rem!important;transition:background .25s;white-space:nowrap;flex-shrink:0;
   }
   .nav-call:hover{background:var(--green-bright);}
-  @media(max-width:880px){.nav-menu li:not(.nav-call-li){display:none;}}
+
+  /* hamburger */
+  .nav-toggle{
+    display:none;width:44px;height:44px;flex-shrink:0;border:1px solid var(--line);
+    background:var(--card);border-radius:4px;cursor:pointer;
+    align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;
+  }
+  .nav-toggle span{display:block;width:20px;height:2px;background:var(--ink);transition:all .3s;}
+  .nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.active span:nth-child(2){opacity:0;}
+  .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* mobile menu drawer */
+  .mobile-menu{
+    display:none;position:fixed;top:0;right:0;bottom:0;width:min(82vw,320px);z-index:200;
+    background:var(--paper);border-left:1px solid var(--line);
+    padding:88px 30px 30px;transform:translateX(100%);transition:transform .32s ease;
+    box-shadow:-20px 0 50px -20px rgba(27,38,32,.3);overflow-y:auto;
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu a{display:block;font-family:'Newsreader',serif;font-size:1.4rem;color:var(--ink);text-decoration:none;padding:16px 0;border-bottom:1px solid var(--line-soft);}
+  .mobile-menu a:last-of-type{border-bottom:none;}
+  .mobile-menu .mm-call{margin-top:24px;background:var(--green);color:var(--paper);text-align:center;border-radius:4px;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;padding:16px;border:none;}
+  .mobile-menu .mm-meta{margin-top:24px;font-size:.84rem;line-height:1.7;color:var(--muted);}
+  .mobile-menu .mm-meta a{font-family:'Outfit',sans-serif;font-size:.84rem;color:var(--brass);padding:0;border:none;display:inline;}
+  .menu-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(27,38,32,.4);opacity:0;transition:opacity .3s;}
+  .menu-overlay.open{opacity:1;}
+
+  @media(max-width:880px){
+    .nav-menu{display:none;}
+    .nav-toggle{display:flex;}
+    .mobile-menu{display:block;}
+    .menu-overlay{display:block;}
+  }
+  @media(max-width:380px){
+    .logo-txt .l1{font-size:1.05rem;}
+    .logo-mark{width:40px;height:40px;font-size:1.2rem;}
+  }
 
   /* hero */
   .hero{max-width:1200px;margin:0 auto;padding:70px 28px 40px;
@@ -383,6 +422,36 @@
 
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
   .reveal.vis{opacity:1;transform:none;}
+
+  /* ============ MOBILE OPTIMIZATIONS ============ */
+  @media(max-width:680px){
+    section{padding:64px 22px;}
+    .hero{padding:36px 22px 30px;}
+    .hero-trust{gap:24px;flex-wrap:wrap;}
+    .ht .n{font-size:1.7rem;}
+    .strip-in{padding:22px;gap:14px;}
+    .strip-in div{flex:1 1 140px;}
+    .pc{padding:34px 26px;}
+    .about-card{padding:38px 30px;}
+    .area-block{padding:26px 22px;}
+    .cform{padding:30px 24px;}
+    .announce{font-size:.72rem;padding:8px 14px;}
+    .btn{padding:14px 24px;font-size:.82rem;}
+    .hero-actions{gap:10px;}
+    .hero-actions .btn{flex:1 1 auto;justify-content:center;}
+  }
+  @media(max-width:480px){
+    .hero-badge{position:static;margin-top:18px;max-width:none;left:auto;right:auto;}
+    .hero-img{aspect-ratio:4/3.4;}
+    .faq-q{font-size:1.08rem;}
+    .faq-a p{max-width:100%;}
+    .ci-line{margin-bottom:22px;}
+    h2.title{font-size:1.75rem;}
+    .foot-c{font-size:.84rem;}
+  }
+  /* Tap targets & no horizontal scroll safety */
+  a,button{-webkit-tap-highlight-color:rgba(31,77,58,.15);}
+  img,svg{max-width:100%;}
 </style>
 </head>
 <body>
@@ -395,15 +464,34 @@
       <span class="logo-mark">E</span>
       <span class="logo-txt"><span class="l1">Edwards &amp; Company</span><span class="l2">Barristers &amp; Solicitors</span></span>
     </a>
-    <ul class="nav-menu">
-      <li><a href="#practice">Practice Areas</a></li>
-      <li><a href="#about">Our Team</a></li>
-      <li><a href="#service">Service Area</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li class="nav-call-li"><a href="tel:6044332445" class="nav-call">(604) 433-2445</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-menu">
+        <li><a href="#practice">Practice Areas</a></li>
+        <li><a href="#about">Our Team</a></li>
+        <li><a href="#service">Service Area</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li class="nav-call-li"><a href="tel:6044332445" class="nav-call">(604) 433-2445</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="#practice">Practice Areas</a>
+  <a href="#about">Our Team</a>
+  <a href="#service">Service Area</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="tel:6044332445" class="mm-call">Call (604) 433-2445</a>
+  <div class="mm-meta">
+    #200 &ndash; 5050 Kingsway, Burnaby, BC V5H 4H2<br>
+    <a href="mailto:eee@bcpersonalinjury.com">eee@bcpersonalinjury.com</a>
+  </div>
+</nav>
 
 <main>
 <!-- HERO -->
@@ -604,6 +692,22 @@
 </footer>
 
 <script>
+  // mobile menu
+  (function(){
+    var t=document.getElementById('navToggle'),
+        m=document.getElementById('mobileMenu'),
+        o=document.getElementById('menuOverlay');
+    function close(){t.classList.remove('active');m.classList.remove('open');o.classList.remove('open');document.body.style.overflow='';}
+    function toggle(){
+      var open=m.classList.contains('open');
+      if(open){close();}
+      else{t.classList.add('active');m.classList.add('open');o.classList.add('open');document.body.style.overflow='hidden';}
+    }
+    t.addEventListener('click',toggle);
+    o.addEventListener('click',close);
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
+  })();
+
   const io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
