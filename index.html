@@ -52,7 +52,7 @@
   "image": "https://bcimpaired.ca/social-card.jpg",
   "telephone": "+1-604-433-2445",
   "faxNumber": "+1-604-433-8209",
-  "email": "eee@bcpersonalinjurylaw.com",
+  "email": "eee@bcpersonalinjury.com",
   "priceRange": "$$",
   "currenciesAccepted": "CAD",
   "address": {
@@ -421,6 +421,17 @@
   @media(max-width:600px){.foot{flex-direction:column;}.foot-c{text-align:left;}}
   .foot-bottom{max-width:1200px;margin:20px auto 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.74rem;color:rgba(245,241,232,.45);}
 
+  /* insights */
+  #insights{background:var(--paper);}
+  .insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:52px;}
+  .icard{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:36px 34px;text-decoration:none;transition:transform .3s,box-shadow .3s;}
+  .icard:hover{transform:translateY(-5px);box-shadow:0 24px 50px -24px rgba(27,38,32,.32);}
+  .icard .ic-tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:16px;}
+  .icard h3{font-size:1.42rem;color:var(--ink);line-height:1.25;margin-bottom:12px;}
+  .icard p{font-size:.94rem;line-height:1.7;color:var(--ink-soft);font-weight:300;margin-bottom:20px;flex-grow:1;}
+  .icard .ic-more{font-size:.82rem;font-weight:600;color:var(--green);letter-spacing:.02em;}
+  .icard:hover .ic-more{color:var(--green-bright);}
+
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
   .reveal.vis{opacity:1;transform:none;}
 
@@ -471,6 +482,7 @@
         <li><a href="#about">Our Team</a></li>
         <li><a href="#service">Service Area</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li><a href="#insights">Insights</a></li>
         <li class="nav-call-li"><a href="tel:6044332445" class="nav-call">(604) 433-2445</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu">
@@ -486,11 +498,12 @@
   <a href="#about">Our Team</a>
   <a href="#service">Service Area</a>
   <a href="#faq">FAQ</a>
+  <a href="#insights">Insights</a>
   <a href="#contact">Contact</a>
   <a href="tel:6044332445" class="mm-call">Call (604) 433-2445</a>
   <div class="mm-meta">
     #200 &ndash; 5050 Kingsway, Burnaby, BC V5H 4H2<br>
-    <a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a>
+    <a href="mailto:eee@bcpersonalinjury.com">eee@bcpersonalinjury.com</a>
   </div>
 </nav>
 
@@ -631,6 +644,31 @@
   </div>
 </section>
 
+<!-- INSIGHTS -->
+<section id="insights" aria-label="Insights and legal resources">
+  <div class="wrap">
+    <div class="lead-head reveal">
+      <span class="kicker">Insights</span>
+      <h2 class="title">Legal resources &amp; <em>guides</em></h2>
+      <p class="lead-p">Plain-language guides to the areas of BC law we handle most often. Knowing your rights and deadlines early can make all the difference.</p>
+    </div>
+    <div class="insight-grid">
+      <a href="immediate-roadside-prohibition-bc.html" class="icard reveal">
+        <span class="ic-tag">Impaired Driving &middot; BC Law</span>
+        <h3>Immediate Roadside Prohibitions (IRP) in BC: A Complete Guide</h3>
+        <p>Warn and Fail penalties, the critical 7-day review deadline, how to challenge an IRP, and what it really costs. Everything a BC driver needs to know after a roadside prohibition.</p>
+        <span class="ic-more">Read the guide &rarr;</span>
+      </a>
+      <a href="#contact" class="icard reveal">
+        <span class="ic-tag">Personal Injury &middot; ICBC</span>
+        <h3>Injured in a Motor Vehicle Accident?</h3>
+        <p>If you've been hurt in a crash, there are important steps to protect your health and your claim. Contact us to discuss your situation and how we can help you seek fair compensation.</p>
+        <span class="ic-more">Get in touch &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" aria-label="Contact us">
   <div class="wrap">
@@ -655,7 +693,7 @@
         </div>
         <div class="ci-line">
           <div class="ci-ic">@</div>
-          <div class="ci-d"><div class="cd-l">Email</div><div class="cd-v"><a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a></div></div>
+          <div class="ci-d"><div class="cd-l">Email</div><div class="cd-v"><a href="mailto:eee@bcpersonalinjury.com">eee@bcpersonalinjury.com</a></div></div>
         </div>
       </div>
       <div class="reveal">
@@ -683,7 +721,7 @@
     <div class="foot-c">
       #200 &ndash; 5050 Kingsway, Burnaby, BC V5H 4H2<br>
       Tel <a href="tel:6044332445">(604) 433-2445</a> &nbsp;&middot;&nbsp; Fax (604) 433-8209<br>
-      <a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a>
+      <a href="mailto:eee@bcpersonalinjury.com">eee@bcpersonalinjury.com</a>
     </div>
   </div>
   <div class="foot-bottom">
