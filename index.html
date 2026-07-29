@@ -231,10 +231,11 @@
     font-family:'Newsreader',serif;font-size:1.35rem;border-radius:3px;
   }
   .logo-txt{min-width:0;}
-  .logo-txt .l1{font-family:'Newsreader',serif;font-size:1.18rem;color:var(--ink);line-height:1.1;white-space:nowrap;}
-  .logo-txt .l2{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:3px;white-space:nowrap;}
+  .logo-txt{display:flex;flex-direction:column;}
+  .logo-txt .l1{display:block;font-family:'Newsreader',serif;font-size:1.18rem;color:var(--ink);line-height:1.15;white-space:nowrap;}
+  .logo-txt .l2{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:3px;white-space:nowrap;}
   .nav-right{display:flex;align-items:center;gap:34px;}
-  .nav-menu{display:flex;align-items:center;gap:34px;list-style:none;}
+  .nav-menu{display:flex;align-items:center;gap:26px;list-style:none;}
   .nav-menu a{font-size:.82rem;font-weight:500;color:var(--ink-soft);text-decoration:none;transition:color .2s;letter-spacing:.01em;white-space:nowrap;}
   .nav-menu a:hover{color:var(--green);}
   .nav-call{
@@ -242,6 +243,27 @@
     font-weight:600!important;font-size:.8rem!important;transition:background .25s;white-space:nowrap;flex-shrink:0;
   }
   .nav-call:hover{background:var(--green-bright);}
+
+  /* language selector */
+  .lang{position:relative;}
+  .lang-btn{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:9px 13px;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;color:var(--ink-soft);cursor:pointer;white-space:nowrap;transition:border-color .2s;}
+  .lang-btn:hover{border-color:var(--green);}
+  .lang-btn svg{width:15px;height:15px;stroke:var(--green);fill:none;stroke-width:1.6;}
+  .lang-btn .caret{font-size:.6rem;color:var(--muted);}
+  .lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);border-radius:5px;box-shadow:0 16px 40px -16px rgba(27,38,32,.3);padding:6px;min-width:190px;z-index:120;display:none;}
+  .lang-menu.open{display:block;}
+  .lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;background:none;border:none;text-align:left;padding:10px 12px;border-radius:3px;font-family:'Outfit',sans-serif;font-size:.86rem;color:var(--ink);cursor:pointer;transition:background .15s;}
+  .lang-menu button:hover{background:var(--paper-2);}
+  .lang-menu button .native{color:var(--muted);font-size:.78rem;}
+  .lang-menu button.active{background:var(--green);color:var(--paper);}
+  .lang-menu button.active .native{color:rgba(245,241,232,.7);}
+
+  /* mobile language selector */
+  .mm-lang{margin-top:26px;padding-top:22px;border-top:1px solid var(--line-soft);}
+  .mm-lang .mm-lang-l{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600;}
+  .mm-lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .mm-lang-grid button{font-family:'Outfit',sans-serif;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:11px 10px;font-size:.85rem;color:var(--ink);cursor:pointer;text-align:center;}
+  .mm-lang-grid button.active{background:var(--green);color:var(--paper);border-color:var(--green);}
 
   /* hamburger */
   .nav-toggle{
@@ -271,7 +293,7 @@
   .menu-overlay{display:none;position:fixed;inset:0;z-index:150;background:rgba(27,38,32,.4);opacity:0;transition:opacity .3s;pointer-events:none;}
   .menu-overlay.open{opacity:1;pointer-events:auto;}
 
-  @media(max-width:880px){
+  @media(max-width:1024px){
     .nav-menu{display:none;}
     .nav-toggle{display:flex;}
     .mobile-menu{display:block;}
@@ -474,7 +496,7 @@
 </head>
 <body>
 
-<div class="announce">Charged with a driving offence or injured in an accident? <a href="#contact">Get a free consultation &rarr;</a></div>
+<div class="announce" data-i18n-html="announce">Charged with a driving offence or injured in an accident? <a href="#contact">Get a free consultation &rarr;</a></div>
 
 <header class="site">
   <div class="nav">
@@ -484,13 +506,25 @@
     </a>
     <div class="nav-right">
       <ul class="nav-menu">
-        <li><a href="#practice">Practice Areas</a></li>
-        <li><a href="#about">Our Team</a></li>
-        <li><a href="#service">Service Area</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#insights">Insights</a></li>
+        <li><a href="#practice" data-i18n="nav_practice">Practice Areas</a></li>
+        <li><a href="#about" data-i18n="nav_team">Our Team</a></li>
+        <li><a href="#service" data-i18n="nav_service">Service Area</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#insights" data-i18n="nav_insights">Insights</a></li>
         <li class="nav-call-li"><a href="tel:6044332445" class="nav-call">(604) 433-2445</a></li>
       </ul>
+      <div class="lang">
+        <button class="lang-btn" id="langBtn" aria-label="Select language">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+          <span id="langCurrent">EN</span><span class="caret">&#9662;</span>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button data-lang="en" class="active">English <span class="native">English</span></button>
+          <button data-lang="vi">Vietnamese <span class="native">Ti&#7871;ng Vi&#7879;t</span></button>
+          <button data-lang="zh-Hans">Chinese (Simplified) <span class="native">&#31616;&#20307;&#20013;&#25991;</span></button>
+          <button data-lang="zh-Hant">Chinese (Traditional) <span class="native">&#32321;&#39636;&#20013;&#25991;</span></button>
+        </div>
+      </div>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -500,16 +534,25 @@
 
 <div class="menu-overlay" id="menuOverlay"></div>
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="#practice">Practice Areas</a>
-  <a href="#about">Our Team</a>
-  <a href="#service">Service Area</a>
-  <a href="#faq">FAQ</a>
-  <a href="#insights">Insights</a>
-  <a href="#contact">Contact</a>
-  <a href="tel:6044332445" class="mm-call">Call (604) 433-2445</a>
+  <a href="#practice" data-i18n="nav_practice">Practice Areas</a>
+  <a href="#about" data-i18n="nav_team">Our Team</a>
+  <a href="#service" data-i18n="nav_service">Service Area</a>
+  <a href="#faq" data-i18n="nav_faq">FAQ</a>
+  <a href="#insights" data-i18n="nav_insights">Insights</a>
+  <a href="#contact" data-i18n="nav_contact">Contact</a>
+  <a href="tel:6044332445" class="mm-call" data-i18n="call_btn">Call (604) 433-2445</a>
   <div class="mm-meta">
     #200 &ndash; 5050 Kingsway, Burnaby, BC V5H 4H2<br>
     <a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a>
+  </div>
+  <div class="mm-lang">
+    <div class="mm-lang-l" data-i18n="lang_label">Language</div>
+    <div class="mm-lang-grid">
+      <button data-lang="en" class="active">English</button>
+      <button data-lang="vi">Ti&#7871;ng Vi&#7879;t</button>
+      <button data-lang="zh-Hans">&#31616;&#20307;&#20013;&#25991;</button>
+      <button data-lang="zh-Hant">&#32321;&#39636;&#20013;&#25991;</button>
+    </div>
   </div>
 </nav>
 
@@ -517,17 +560,17 @@
 <!-- HERO -->
 <section class="hero" aria-label="Introduction">
   <div class="hero-content reveal">
-    <span class="hero-kicker">Burnaby &middot; Greater Vancouver &middot; Est. 1953</span>
-    <h1>Criminal defence &amp; <em>personal injury</em> lawyers in Burnaby</h1>
-    <p class="hero-lede">Edwards &amp; Company represents clients across British Columbia in criminal and personal injury matters. We listen, we explain the law clearly, and we fight for the result you deserve.</p>
+    <span class="hero-kicker" data-i18n="hero_kicker">Burnaby &middot; Greater Vancouver &middot; Est. 1953</span>
+    <h1 data-i18n-html="hero_h1">Criminal defence &amp; <em>personal injury</em> lawyers in Burnaby</h1>
+    <p class="hero-lede" data-i18n="hero_lede">Edwards &amp; Company represents clients across British Columbia in criminal and personal injury matters. We listen, we explain the law clearly, and we fight for the result you deserve.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn btn-green">Free Consultation</a>
-      <a href="tel:6044332445" class="btn btn-outline">Call (604) 433-2445</a>
+      <a href="#contact" class="btn btn-green" data-i18n="free_consult">Free Consultation</a>
+      <a href="tel:6044332445" class="btn btn-outline" data-i18n="call_btn">Call (604) 433-2445</a>
     </div>
     <div class="hero-trust">
-      <div class="ht"><div class="n">40+</div><div class="l">Years trial experience</div></div>
-      <div class="ht"><div class="n">2</div><div class="l">Provinces</div></div>
-      <div class="ht"><div class="n">BC</div><div class="l">Province-wide</div></div>
+      <div class="ht"><div class="n">40+</div><div class="l" data-i18n="stat_years">Years trial experience</div></div>
+      <div class="ht"><div class="n">2</div><div class="l" data-i18n="stat_prov">Provinces</div></div>
+      <div class="ht"><div class="n">BC</div><div class="l" data-i18n="stat_wide">Province-wide</div></div>
     </div>
   </div>
   <div class="hero-visual reveal">
@@ -542,10 +585,10 @@
 
 <div class="strip">
   <div class="strip-in">
-    <div><strong>Impaired Driving</strong> &middot; Defence</div>
-    <div><strong>Motor Vehicle Accidents</strong> &middot; Injury Claims</div>
-    <div><strong>Dangerous &amp; Prohibited Driving</strong></div>
-    <div><strong>Hit &amp; Run</strong> &middot; Defence</div>
+    <div data-i18n-html="strip1"><strong>Impaired Driving</strong> &middot; Defence</div>
+    <div data-i18n-html="strip2"><strong>Motor Vehicle Accidents</strong> &middot; Injury Claims</div>
+    <div data-i18n-html="strip3"><strong>Dangerous &amp; Prohibited Driving</strong></div>
+    <div data-i18n-html="strip4"><strong>Hit &amp; Run</strong> &middot; Defence</div>
   </div>
 </div>
 
@@ -553,31 +596,31 @@
 <section id="practice" aria-label="Practice areas">
   <div class="wrap">
     <div class="lead-head reveal">
-      <span class="kicker">Practice Areas</span>
-      <h2 class="title">Focused expertise in <em>two key areas</em></h2>
-      <p class="lead-p">Our office is located in the Metrotown area of Burnaby. We attend courts in New Westminster, Port Coquitlam, Surrey, Richmond, and North Vancouver, and have taken trials throughout British Columbia and Alberta.</p>
+      <span class="kicker" data-i18n="nav_practice">Practice Areas</span>
+      <h2 class="title" data-i18n-html="prac_title">Focused expertise in <em>two key areas</em></h2>
+      <p class="lead-p" data-i18n="prac_intro">Our office is located in the Metrotown area of Burnaby. We attend courts in New Westminster, Port Coquitlam, Surrey, Richmond, and North Vancouver, and have taken trials throughout British Columbia and Alberta.</p>
     </div>
     <div class="pgrid">
       <article class="pc reveal">
         <div class="pc-ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M4 21h16M7 12l-2 5h4l-2-5zM17 12l-2 5h4l-2-5z"/></svg></div>
-        <h3>Criminal Defence</h3>
-        <p>Expert criminal defence across British Columbia. We defend clients facing serious charges with over 40 years of combined trial experience in BC and Alberta courts.</p>
+        <h3 data-i18n="prac_c_h">Criminal Defence</h3>
+        <p data-i18n="prac_c_p">Expert criminal defence across British Columbia. We defend clients facing serious charges with over 40 years of combined trial experience in BC and Alberta courts.</p>
         <div class="pc-list">
-          <span>Impaired driving (DUI)</span>
-          <span>Hit and run</span>
-          <span>Driving while prohibited</span>
-          <span>Dangerous driving causing bodily harm or death</span>
+          <span data-i18n="prac_c_1">Impaired driving (DUI)</span>
+          <span data-i18n="prac_c_2">Hit and run</span>
+          <span data-i18n="prac_c_3">Driving while prohibited</span>
+          <span data-i18n="prac_c_4">Dangerous driving causing bodily harm or death</span>
         </div>
       </article>
       <article class="pc reveal">
         <div class="pc-ic"><svg viewBox="0 0 24 24"><path d="M3 13l2-5h14l2 5M5 13h14v5H5zM7 18v2M17 18v2M6.5 15.5h.01M17.5 15.5h.01"/></svg></div>
-        <h3>Personal Injury Law</h3>
-        <p>If you've been injured due to negligence, we fight to secure the compensation you deserve. We specialize in motor vehicle accident claims throughout Greater Vancouver and beyond.</p>
+        <h3 data-i18n="prac_p_h">Personal Injury Law</h3>
+        <p data-i18n="prac_p_p">If you've been injured due to negligence, we fight to secure the compensation you deserve. We specialize in motor vehicle accident claims throughout Greater Vancouver and beyond.</p>
         <div class="pc-list">
-          <span>Motor vehicle accident claims</span>
-          <span>Injury compensation</span>
-          <span>Negligence claims</span>
-          <span>Compassionate, skilled representation</span>
+          <span data-i18n="prac_p_1">Motor vehicle accident claims</span>
+          <span data-i18n="prac_p_2">Injury compensation</span>
+          <span data-i18n="prac_p_3">Negligence claims</span>
+          <span data-i18n="prac_p_4">Compassionate, skilled representation</span>
         </div>
       </article>
     </div>
@@ -588,26 +631,26 @@
 <section id="about" aria-label="Our team">
   <div class="wrap">
     <div class="lead-head reveal">
-      <span class="kicker">Our Team</span>
-      <h2 class="title">Meet your <em>advocate</em></h2>
+      <span class="kicker" data-i18n="nav_team">Our Team</span>
+      <h2 class="title" data-i18n-html="about_title">Meet your <em>advocate</em></h2>
     </div>
     <div class="about-grid">
       <div class="about-card reveal">
         <div class="mono">BE</div>
         <div class="ac-name">Brock A. Edwards, LL.B.</div>
-        <div class="ac-role">Barrister &amp; Solicitor</div>
+        <div class="ac-role" data-i18n="about_bs">Barrister &amp; Solicitor</div>
         <div class="ac-bar"></div>
         <div class="ac-mem">
-          <div>Law Society of British Columbia</div>
-          <div>Canadian Bar Association</div>
-          <div>Trial Lawyers Association of BC</div>
+          <div data-i18n="mem1">Law Society of British Columbia</div>
+          <div data-i18n="mem2">Canadian Bar Association</div>
+          <div data-i18n="mem3">Trial Lawyers Association of BC</div>
         </div>
       </div>
       <div class="about-body reveal">
         <h3>Brock A. Edwards, LL.B.</h3>
-        <div class="ab-role">Criminal &amp; Personal Injury &middot; Motor Vehicle Accidents</div>
-        <p>Brock Edwards practices criminal law and personal injury, with a focus on motor vehicle accidents. He articled in Calgary and has worked on a wide range of matters including jury trials, dangerous driving causing death, and impaired driving causing bodily harm.</p>
-        <p>He was called to the Alberta Bar in 2001 and admitted to the British Columbia Bar in 2004, accumulating over 15 years of law office experience.</p>
+        <div class="ab-role" data-i18n="about_role">Criminal &amp; Personal Injury &middot; Motor Vehicle Accidents</div>
+        <p data-i18n="about_p1">Brock Edwards practices criminal law and personal injury, with a focus on motor vehicle accidents. He articled in Calgary and has worked on a wide range of matters including jury trials, dangerous driving causing death, and impaired driving causing bodily harm.</p>
+        <p data-i18n="about_p2">He was called to the Alberta Bar in 2001 and admitted to the British Columbia Bar in 2004, accumulating over 15 years of law office experience.</p>
       </div>
     </div>
   </div>
@@ -617,16 +660,16 @@
 <section id="service" aria-label="Service area">
   <div class="wrap">
     <div class="lead-head reveal">
-      <span class="kicker">Where We Practice</span>
-      <h2 class="title">Serving all of <em>British Columbia</em></h2>
-      <p class="lead-p">We are committed to providing quality legal services across the province. Our office is conveniently located in Metrotown, Burnaby, and we serve the Greater Vancouver region and beyond.</p>
+      <span class="kicker" data-i18n="serv_kicker">Where We Practice</span>
+      <h2 class="title" data-i18n-html="serv_title">Serving all of <em>British Columbia</em></h2>
+      <p class="lead-p" data-i18n="serv_intro">We are committed to providing quality legal services across the province. Our office is conveniently located in Metrotown, Burnaby, and we serve the Greater Vancouver region and beyond.</p>
     </div>
     <div class="reveal">
       <div class="courts">
         <span>Burnaby</span><span>Vancouver</span><span>New Westminster</span><span>Surrey</span><span>Richmond</span><span>Port Coquitlam</span><span>North Vancouver</span>
       </div>
       <div class="area-block">
-        <div class="ab-label">Additional Communities Served Across BC</div>
+        <div class="ab-label" data-i18n="serv_more">Additional Communities Served Across BC</div>
         <p>North Delta &middot; West Vancouver &middot; Port Moody &middot; Maple Ridge &middot; Langley &middot; Abbotsford &middot; Chilliwack &middot; Hope &middot; Merritt &middot; Kamloops &middot; Kelowna &middot; Penticton &middot; Vernon &middot; Prince George &middot; Nanaimo &middot; Victoria &middot; Sechelt &middot; Campbell River &middot; White Rock &middot; Cranbrook &middot; Fort Saint John &middot; Port Alberni &middot; Pitt Meadows &middot; Mission &middot; Agassiz &middot; Salmon Arm &middot; Powell River &middot; Prince Rupert &middot; Parksville &middot; Courtenay &middot; Dawson Creek &middot; Terrace &middot; Williams Lake &middot; Fort Nelson &middot; Quesnel &middot; Trail &middot; Revelstoke &middot; Kimberley &middot; Duncan &middot; Armstrong &middot; Fernie &middot; Grand Forks &middot; Rossland &middot; Enderby &middot; Squamish &middot; Whistler &middot; Ladysmith &middot; Castlegar &middot; Walnut Grove &middot; Gibsons &middot; Kitimat &middot; Smithers &middot; Creston &middot; Oliver &middot; Osoyoos &middot; Golden &middot; Princeton &middot; Chase &middot; Sicamous &middot; Pemberton &middot; Chetwynd &middot; Aldergrove &middot; Cloverdale &middot; Lillooet &middot; Logan Lake &middot; Lumby &middot; Ashcroft &middot; Roberts Creek &middot; Harrison Hot Springs &middot; Deep Cove &middot; Cache Creek &middot; Tsawwassen</p>
       </div>
     </div>
@@ -654,28 +697,28 @@
 <section id="insights" aria-label="Insights and legal resources">
   <div class="wrap">
     <div class="lead-head reveal">
-      <span class="kicker">Insights</span>
-      <h2 class="title">Legal resources &amp; <em>guides</em></h2>
-      <p class="lead-p">Plain-language guides to the areas of BC law we handle most often. Knowing your rights and deadlines early can make all the difference.</p>
+      <span class="kicker" data-i18n="nav_insights">Insights</span>
+      <h2 class="title" data-i18n-html="ins_title">Legal resources &amp; <em>guides</em></h2>
+      <p class="lead-p" data-i18n="ins_intro">Plain-language guides to the areas of BC law we handle most often. Knowing your rights and deadlines early can make all the difference.</p>
     </div>
     <div class="insight-grid">
       <a href="immediate-roadside-prohibition-bc.html" class="icard reveal">
-        <span class="ic-tag">Impaired Driving &middot; BC Law</span>
-        <h3>Immediate Roadside Prohibitions (IRP) in BC: A Complete Guide</h3>
-        <p>Warn and Fail penalties, the critical 7-day review deadline, how to challenge an IRP, and what it really costs. Everything a BC driver needs to know after a roadside prohibition.</p>
-        <span class="ic-more">Read the guide &rarr;</span>
+        <span class="ic-tag" data-i18n="ins1_tag">Impaired Driving &middot; BC Law</span>
+        <h3 data-i18n="ins1_h">Immediate Roadside Prohibitions (IRP) in BC: A Complete Guide</h3>
+        <p data-i18n="ins1_p">Warn and Fail penalties, the critical 7-day review deadline, how to challenge an IRP, and what it really costs. Everything a BC driver needs to know after a roadside prohibition.</p>
+        <span class="ic-more" data-i18n="read_guide">Read the guide &rarr;</span>
       </a>
       <a href="dui-impaired-driving-charges-bc.html" class="icard reveal">
-        <span class="ic-tag">Criminal Law &middot; BC</span>
-        <h3>DUI &amp; Impaired Driving Charges in BC: What You Need to Know</h3>
-        <p>The criminal side of impaired driving — the offences under the Criminal Code, the two-hour rule, drug limits, refusal, and the mandatory penalties you face on conviction.</p>
+        <span class="ic-tag" data-i18n="ins2_tag">Criminal Law &middot; BC</span>
+        <h3 data-i18n="ins2_h">DUI &amp; Impaired Driving Charges in BC: What You Need to Know</h3>
+        <p data-i18n="ins2_p">The criminal side of impaired driving — the offences under the Criminal Code, the two-hour rule, drug limits, refusal, and the mandatory penalties you face on conviction.</p>
         <span class="ic-more">Read the guide &rarr;</span>
       </a>
       <a href="#contact" class="icard reveal">
-        <span class="ic-tag">Personal Injury &middot; ICBC</span>
-        <h3>Injured in a Motor Vehicle Accident?</h3>
-        <p>If you've been hurt in a crash, there are important steps to protect your health and your claim. Contact us to discuss your situation and how we can help you seek fair compensation.</p>
-        <span class="ic-more">Get in touch &rarr;</span>
+        <span class="ic-tag" data-i18n="ins3_tag">Personal Injury &middot; ICBC</span>
+        <h3 data-i18n="ins3_h">Injured in a Motor Vehicle Accident?</h3>
+        <p data-i18n="ins3_p">If you've been hurt in a crash, there are important steps to protect your health and your claim. Contact us to discuss your situation and how we can help you seek fair compensation.</p>
+        <span class="ic-more" data-i18n="get_touch">Get in touch &rarr;</span>
       </a>
     </div>
   </div>
@@ -685,39 +728,39 @@
 <section id="contact" aria-label="Contact us">
   <div class="wrap">
     <div class="lead-head reveal">
-      <span class="kicker">Get In Touch</span>
-      <h2 class="title">Request your <em>free consultation</em></h2>
-      <p class="lead-p">We will return your message as soon as possible. Initial consultations are available by phone or in person at our Metrotown office.</p>
+      <span class="kicker" data-i18n="con_kicker">Get In Touch</span>
+      <h2 class="title" data-i18n-html="con_title">Request your <em>free consultation</em></h2>
+      <p class="lead-p" data-i18n="con_intro">We will return your message as soon as possible. Initial consultations are available by phone or in person at our Metrotown office.</p>
     </div>
     <div class="contact-grid">
       <div class="reveal">
         <div class="ci-line">
           <div class="ci-ic">&#9906;</div>
-          <div class="ci-d"><div class="cd-l">Office</div><div class="cd-v">#200 &ndash; 5050 Kingsway<br>Burnaby, BC&nbsp; V5H 4H2<br><a href="https://maps.google.com/?q=5050+Kingsway+Burnaby+BC" target="_blank" rel="noopener">View on map &rarr;</a></div></div>
+          <div class="ci-d"><div class="cd-l" data-i18n="lbl_office">Office</div><div class="cd-v">#200 &ndash; 5050 Kingsway<br>Burnaby, BC&nbsp; V5H 4H2<br><a href="https://maps.google.com/?q=5050+Kingsway+Burnaby+BC" target="_blank" rel="noopener" data-i18n="view_map">View on map &rarr;</a></div></div>
         </div>
         <div class="ci-line">
           <div class="ci-ic">&#9742;</div>
-          <div class="ci-d"><div class="cd-l">Telephone</div><div class="cd-v"><a href="tel:6044332445">(604) 433-2445</a></div></div>
+          <div class="ci-d"><div class="cd-l" data-i18n="lbl_tel">Telephone</div><div class="cd-v"><a href="tel:6044332445">(604) 433-2445</a></div></div>
         </div>
         <div class="ci-line">
           <div class="ci-ic">&#9993;</div>
-          <div class="ci-d"><div class="cd-l">Fax</div><div class="cd-v">(604) 433-8209</div></div>
+          <div class="ci-d"><div class="cd-l" data-i18n="lbl_fax">Fax</div><div class="cd-v">(604) 433-8209</div></div>
         </div>
         <div class="ci-line">
           <div class="ci-ic">@</div>
-          <div class="ci-d"><div class="cd-l">Email</div><div class="cd-v"><a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a></div></div>
+          <div class="ci-d"><div class="cd-l" data-i18n="lbl_email">Email</div><div class="cd-v"><a href="mailto:eee@bcpersonalinjurylaw.com">eee@bcpersonalinjurylaw.com</a></div></div>
         </div>
       </div>
       <div class="reveal">
         <form class="cform" action="https://formspree.io/f/xpqgzknv" method="POST">
           <div class="cform-row">
-            <div class="fg"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required></div>
-            <div class="fg"><label>Phone</label><input type="tel" name="phone" placeholder="(604) 000-0000"></div>
+            <div class="fg"><label data-i18n="f_name">Full Name</label><input type="text" name="name" placeholder="Your name" data-i18n-ph="ph_name" required></div>
+            <div class="fg"><label data-i18n="f_phone">Phone</label><input type="tel" name="phone" placeholder="(604) 000-0000"></div>
           </div>
-          <div class="fg"><label>Email</label><input type="email" name="email" placeholder="you@example.com" required></div>
-          <div class="fg"><label>How can we help?</label><textarea name="message" placeholder="Briefly describe your situation..." required></textarea></div>
-          <button type="submit" class="btn btn-green">Send Message</button>
-          <p class="fnote">We respect your privacy and will respond as soon as possible.</p>
+          <div class="fg"><label data-i18n="f_email">Email</label><input type="email" name="email" placeholder="you@example.com" required></div>
+          <div class="fg"><label data-i18n="f_help">How can we help?</label><textarea name="message" placeholder="Briefly describe your situation..." data-i18n-ph="ph_msg" required></textarea></div>
+          <button type="submit" class="btn btn-green" data-i18n="send_msg">Send Message</button>
+          <p class="fnote" data-i18n="fnote">We respect your privacy and will respond as soon as possible.</p>
         </form>
       </div>
     </div>
@@ -728,7 +771,7 @@
   <div class="foot">
     <div class="foot-b">
       <div class="fn">Edwards &amp; Company</div>
-      <div class="fs">Criminal Defence &amp; Personal Injury</div>
+      <div class="fs" data-i18n="foot_sub">Criminal Defence &amp; Personal Injury</div>
     </div>
     <div class="foot-c">
       #200 &ndash; 5050 Kingsway, Burnaby, BC V5H 4H2<br>
@@ -737,11 +780,209 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span>&copy; 2026 Edwards &amp; Company. All rights reserved.</span>
-    <span>Criminal &amp; Personal Injury Lawyers &middot; Burnaby, British Columbia</span>
+    <span data-i18n="foot_copy">&copy; 2026 Edwards &amp; Company. All rights reserved.</span>
+    <span data-i18n="foot_tag">Criminal &amp; Personal Injury Lawyers &middot; Burnaby, British Columbia</span>
   </div>
 </footer>
 
+<script>
+/* ================= i18n TRANSLATIONS ================= */
+var I18N = {
+  "en": {
+    nav_practice:"Practice Areas", nav_team:"Our Team", nav_service:"Service Area", nav_faq:"FAQ", nav_insights:"Insights", nav_contact:"Contact",
+    lang_label:"Language",
+    announce:'Charged with a driving offence or injured in an accident? <a href="#contact">Get a free consultation &rarr;</a>',
+    hero_kicker:"Burnaby \u00b7 Greater Vancouver \u00b7 Est. 1953",
+    hero_h1:'Criminal defence &amp; <em>personal injury</em> lawyers in Burnaby',
+    hero_lede:"Edwards & Company represents clients across British Columbia in criminal and personal injury matters. We listen, we explain the law clearly, and we fight for the result you deserve.",
+    free_consult:"Free Consultation", call_btn:"Call (604) 433-2445",
+    stat_years:"Years trial experience", stat_prov:"Provinces", stat_wide:"Province-wide",
+    strip1:"<strong>Impaired Driving</strong> \u00b7 Defence", strip2:"<strong>Motor Vehicle Accidents</strong> \u00b7 Injury Claims", strip3:"<strong>Dangerous &amp; Prohibited Driving</strong>", strip4:"<strong>Hit &amp; Run</strong> \u00b7 Defence",
+    prac_title:'Focused expertise in <em>two key areas</em>',
+    prac_intro:"Our office is located in the Metrotown area of Burnaby. We attend courts in New Westminster, Port Coquitlam, Surrey, Richmond, and North Vancouver, and have taken trials throughout British Columbia and Alberta.",
+    prac_c_h:"Criminal Defence", prac_c_p:"Expert criminal defence across British Columbia. We defend clients facing serious charges with over 40 years of combined trial experience in BC and Alberta courts.",
+    prac_c_1:"Impaired driving (DUI)", prac_c_2:"Hit and run", prac_c_3:"Driving while prohibited", prac_c_4:"Dangerous driving causing bodily harm or death",
+    prac_p_h:"Personal Injury Law", prac_p_p:"If you've been injured due to negligence, we fight to secure the compensation you deserve. We specialize in motor vehicle accident claims throughout Greater Vancouver and beyond.",
+    prac_p_1:"Motor vehicle accident claims", prac_p_2:"Injury compensation", prac_p_3:"Negligence claims", prac_p_4:"Compassionate, skilled representation",
+    about_title:'Meet your <em>advocate</em>', about_bs:"Barrister & Solicitor",
+    mem1:"Law Society of British Columbia", mem2:"Canadian Bar Association", mem3:"Trial Lawyers Association of BC",
+    about_role:"Criminal & Personal Injury \u00b7 Motor Vehicle Accidents",
+    about_p1:"Brock Edwards practices criminal law and personal injury, with a focus on motor vehicle accidents. He articled in Calgary and has worked on a wide range of matters including jury trials, dangerous driving causing death, and impaired driving causing bodily harm.",
+    about_p2:"He was called to the Alberta Bar in 2001 and admitted to the British Columbia Bar in 2004, accumulating over 15 years of law office experience.",
+    serv_kicker:"Where We Practice", serv_title:'Serving all of <em>British Columbia</em>',
+    serv_intro:"We are committed to providing quality legal services across the province. Our office is conveniently located in Metrotown, Burnaby, and we serve the Greater Vancouver region and beyond.",
+    serv_more:"Additional Communities Served Across BC",
+    ins_title:'Legal resources &amp; <em>guides</em>',
+    ins_intro:"Plain-language guides to the areas of BC law we handle most often. Knowing your rights and deadlines early can make all the difference.",
+    ins1_tag:"Impaired Driving \u00b7 BC Law", ins1_h:"Immediate Roadside Prohibitions (IRP) in BC: A Complete Guide", ins1_p:"Warn and Fail penalties, the critical 7-day review deadline, how to challenge an IRP, and what it really costs. Everything a BC driver needs to know after a roadside prohibition.",
+    ins2_tag:"Criminal Law \u00b7 BC", ins2_h:"DUI & Impaired Driving Charges in BC: What You Need to Know", ins2_p:"The criminal side of impaired driving \u2014 the offences under the Criminal Code, the two-hour rule, drug limits, refusal, and the mandatory penalties you face on conviction.",
+    ins3_tag:"Personal Injury \u00b7 ICBC", ins3_h:"Injured in a Motor Vehicle Accident?", ins3_p:"If you've been hurt in a crash, there are important steps to protect your health and your claim. Contact us to discuss your situation and how we can help you seek fair compensation.",
+    read_guide:"Read the guide \u2192", get_touch:"Get in touch \u2192",
+    con_kicker:"Get In Touch", con_title:'Request your <em>free consultation</em>',
+    con_intro:"We will return your message as soon as possible. Initial consultations are available by phone or in person at our Metrotown office.",
+    lbl_office:"Office", lbl_tel:"Telephone", lbl_fax:"Fax", lbl_email:"Email", view_map:"View on map \u2192",
+    f_name:"Full Name", f_phone:"Phone", f_email:"Email", f_help:"How can we help?", ph_name:"Your name", ph_msg:"Briefly describe your situation...",
+    send_msg:"Send Message", fnote:"We respect your privacy and will respond as soon as possible.",
+    foot_sub:"Criminal Defence & Personal Injury", foot_copy:"\u00a9 2026 Edwards & Company. All rights reserved.", foot_tag:"Criminal & Personal Injury Lawyers \u00b7 Burnaby, British Columbia"
+  },
+  "vi": {
+    nav_practice:"L\u0129nh v\u1EF1c", nav_team:"Lu\u1EADt s\u01B0", nav_service:"Khu v\u1EF1c ph\u1EE5c v\u1EE5", nav_faq:"C\u00E2u h\u1ECFi", nav_insights:"B\u00E0i vi\u1EBFt", nav_contact:"Li\u00EAn h\u1EC7",
+    lang_label:"Ng\u00F4n ng\u1EEF",
+    announce:'B\u1ECB bu\u1ED9c t\u1ED9i l\u00E1i xe ho\u1EB7c b\u1ECB th\u01B0\u01A1ng trong tai n\u1EA1n? <a href="#contact">T\u01B0 v\u1EA5n mi\u1EC5n ph\u00ED &rarr;</a>',
+    hero_kicker:"Burnaby \u00b7 Greater Vancouver \u00b7 T\u1EEB 1953",
+    hero_h1:'Lu\u1EADt s\u01B0 b\u00E0o ch\u1EEFa h\u00ECnh s\u1EF1 &amp; <em>th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n</em> t\u1EA1i Burnaby',
+    hero_lede:"Edwards & Company \u0111\u1EA1i di\u1EC7n cho kh\u00E1ch h\u00E0ng tr\u00EAn kh\u1EAFp British Columbia trong c\u00E1c v\u1EE5 vi\u1EC7c h\u00ECnh s\u1EF1 v\u00E0 th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n. Ch\u00FAng t\u00F4i l\u1EAFng nghe, gi\u1EA3i th\u00EDch ph\u00E1p lu\u1EADt r\u00F5 r\u00E0ng v\u00E0 \u0111\u1EA5u tranh cho k\u1EBFt qu\u1EA3 b\u1EA1n x\u1EE9ng \u0111\u00E1ng.",
+    free_consult:"T\u01B0 v\u1EA5n mi\u1EC5n ph\u00ED", call_btn:"G\u1ECDi (604) 433-2445",
+    stat_years:"N\u0103m kinh nghi\u1EC7m x\u00E9t x\u1EED", stat_prov:"T\u1EC9nh bang", stat_wide:"To\u00E0n t\u1EC9nh bang",
+    strip1:"<strong>L\u00E1i xe khi say</strong> \u00b7 B\u00E0o ch\u1EEFa", strip2:"<strong>Tai n\u1EA1n xe c\u01A1 gi\u1EDBi</strong> \u00b7 B\u1ED3i th\u01B0\u1EDDng", strip3:"<strong>L\u00E1i xe nguy hi\u1EC3m &amp; b\u1ECB c\u1EA5m</strong>", strip4:"<strong>L\u00E1i xe g\u00E2y tai n\u1EA1n r\u1ED3i b\u1ECF tr\u1ED1n</strong>",
+    prac_title:'Chuy\u00EAn m\u00F4n t\u1EADp trung v\u00E0o <em>hai l\u0129nh v\u1EF1c ch\u00EDnh</em>',
+    prac_intro:"V\u0103n ph\u00F2ng c\u1EE7a ch\u00FAng t\u00F4i n\u1EB1m \u1EDF khu v\u1EF1c Metrotown, Burnaby. Ch\u00FAng t\u00F4i tham d\u1EF1 t\u00F2a \u00E1n t\u1EA1i New Westminster, Port Coquitlam, Surrey, Richmond v\u00E0 North Vancouver, v\u00E0 \u0111\u00E3 x\u00E9t x\u1EED c\u00E1c v\u1EE5 \u00E1n tr\u00EAn kh\u1EAFp British Columbia v\u00E0 Alberta.",
+    prac_c_h:"B\u00E0o ch\u1EEFa h\u00ECnh s\u1EF1", prac_c_p:"B\u00E0o ch\u1EEFa h\u00ECnh s\u1EF1 chuy\u00EAn nghi\u1EC7p tr\u00EAn kh\u1EAFp British Columbia. Ch\u00FAng t\u00F4i b\u1EA3o v\u1EC7 kh\u00E1ch h\u00E0ng \u0111\u1ED1i m\u1EB7t v\u1EDBi c\u00E1c c\u00E1o bu\u1ED9c nghi\u00EAm tr\u1ECDng v\u1EDBi h\u01A1n 40 n\u0103m kinh nghi\u1EC7m x\u00E9t x\u1EED t\u1EA1i c\u00E1c t\u00F2a \u00E1n BC v\u00E0 Alberta.",
+    prac_c_1:"L\u00E1i xe khi say (DUI)", prac_c_2:"G\u00E2y tai n\u1EA1n r\u1ED3i b\u1ECF tr\u1ED1n", prac_c_3:"L\u00E1i xe khi b\u1ECB c\u1EA5m", prac_c_4:"L\u00E1i xe nguy hi\u1EC3m g\u00E2y th\u01B0\u01A1ng t\u00EDch ho\u1EB7c t\u1EED vong",
+    prac_p_h:"Lu\u1EADt th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n", prac_p_p:"N\u1EBFu b\u1EA1n b\u1ECB th\u01B0\u01A1ng do s\u01B0 s\u01A1 su\u1EA5t, ch\u00FAng t\u00F4i \u0111\u1EA5u tranh \u0111\u1EC3 gi\u00E0nh \u0111\u01B0\u1EE3c kho\u1EA3n b\u1ED3i th\u01B0\u1EDDng b\u1EA1n x\u1EE9ng \u0111\u00E1ng. Ch\u00FAng t\u00F4i chuy\u00EAn v\u1EC1 c\u00E1c v\u1EE5 tai n\u1EA1n xe c\u01A1 gi\u1EDBi tr\u00EAn kh\u1EAFp Greater Vancouver v\u00E0 xa h\u01A1n.",
+    prac_p_1:"B\u1ED3i th\u01B0\u1EDDng tai n\u1EA1n xe c\u01A1 gi\u1EDBi", prac_p_2:"B\u1ED3i th\u01B0\u1EDDng th\u01B0\u01A1ng t\u00EDch", prac_p_3:"Y\u00EAu c\u1EA7u b\u1ED3i th\u01B0\u1EDDng do s\u01A1 su\u1EA5t", prac_p_4:"\u0110\u1EA1i di\u1EC7n t\u1EADn t\u00E2m, chuy\u00EAn nghi\u1EC7p",
+    about_title:'G\u1EB7p g\u1EE1 <em>lu\u1EADt s\u01B0 c\u1EE7a b\u1EA1n</em>', about_bs:"Lu\u1EADt s\u01B0",
+    mem1:"Hi\u1EC7p h\u1ED9i Lu\u1EADt s\u01B0 British Columbia", mem2:"Hi\u1EC7p h\u1ED9i Lu\u1EADt s\u01B0 Canada", mem3:"Hi\u1EC7p h\u1ED9i Lu\u1EADt s\u01B0 Tranh t\u1EE5ng BC",
+    about_role:"H\u00ECnh s\u1EF1 & Th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n \u00b7 Tai n\u1EA1n xe c\u01A1 gi\u1EDBi",
+    about_p1:"Brock Edwards h\u00E0nh ngh\u1EC1 lu\u1EADt h\u00ECnh s\u1EF1 v\u00E0 th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n, t\u1EADp trung v\u00E0o tai n\u1EA1n xe c\u01A1 gi\u1EDBi. \u00d4ng t\u1EADp s\u1EF1 t\u1EA1i Calgary v\u00E0 \u0111\u00E3 x\u1EED l\u00FD nhi\u1EC1u v\u1EE5 vi\u1EC7c bao g\u1ED3m x\u00E9t x\u1EED c\u00F3 b\u1ED3i th\u1EA9m \u0111o\u00E0n, l\u00E1i xe nguy hi\u1EC3m g\u00E2y t\u1EED vong v\u00E0 l\u00E1i xe khi say g\u00E2y th\u01B0\u01A1ng t\u00EDch.",
+    about_p2:"\u00d4ng \u0111\u01B0\u1EE3c c\u00F4ng nh\u1EADn v\u00E0o Lu\u1EADt s\u01B0 \u0111o\u00E0n Alberta n\u0103m 2001 v\u00E0 British Columbia n\u0103m 2004, t\u00EDch l\u0169y h\u01A1n 15 n\u0103m kinh nghi\u1EC7m t\u1EA1i v\u0103n ph\u00F2ng lu\u1EADt.",
+    serv_kicker:"N\u01A1i ch\u00FAng t\u00F4i h\u00E0nh ngh\u1EC1", serv_title:'Ph\u1EE5c v\u1EE5 to\u00E0n <em>British Columbia</em>',
+    serv_intro:"Ch\u00FAng t\u00F4i cam k\u1EBFt cung c\u1EA5p d\u1ECBch v\u1EE5 ph\u00E1p l\u00FD ch\u1EA5t l\u01B0\u1EE3ng tr\u00EAn kh\u1EAFp t\u1EC9nh bang. V\u0103n ph\u00F2ng thu\u1EADn ti\u1EC7n t\u1EA1i Metrotown, Burnaby, ph\u1EE5c v\u1EE5 khu v\u1EF1c Greater Vancouver v\u00E0 xa h\u01A1n.",
+    serv_more:"C\u00E1c c\u1ED9ng \u0111\u1ED3ng kh\u00E1c \u0111\u01B0\u1EE3c ph\u1EE5c v\u1EE5 tr\u00EAn kh\u1EAFp BC",
+    ins_title:'T\u00E0i nguy\u00EAn ph\u00E1p l\u00FD &amp; <em>h\u01B0\u1EDBng d\u1EABn</em>',
+    ins_intro:"H\u01B0\u1EDBng d\u1EABn d\u1EC5 hi\u1EC3u v\u1EC1 c\u00E1c l\u0129nh v\u1EF1c lu\u1EADt BC ch\u00FAng t\u00F4i th\u01B0\u1EDDng x\u1EED l\u00FD nh\u1EA5t. Bi\u1EBFt quy\u1EC1n v\u00E0 th\u1EDDi h\u1EA1n s\u1EDBm c\u00F3 th\u1EC3 t\u1EA1o kh\u00E1c bi\u1EC7t l\u1EDBn.",
+    ins1_tag:"L\u00E1i xe khi say \u00b7 Lu\u1EADt BC", ins1_h:"L\u1EC7nh c\u1EA5m l\u00E1i xe t\u1EE9c th\u1EDDi (IRP) \u1EDF BC: H\u01B0\u1EDBng d\u1EABn \u0111\u1EA7y \u0111\u1EE7", ins1_p:"C\u00E1c m\u1EE9c ph\u1EA1t Warn v\u00E0 Fail, th\u1EDDi h\u1EA1n xem x\u00E9t 7 ng\u00E0y quan tr\u1ECDng, c\u00E1ch kh\u00E1ng ngh\u1ECB IRP v\u00E0 chi ph\u00ED th\u1EF1c s\u1EF1. M\u1ECDi \u0111i\u1EC1u t\u00E0i x\u1EBF BC c\u1EA7n bi\u1EBFt.",
+    ins2_tag:"Lu\u1EADt h\u00ECnh s\u1EF1 \u00b7 BC", ins2_h:"C\u00E1o bu\u1ED9c l\u00E1i xe khi say (DUI) \u1EDF BC: \u0110i\u1EC1u b\u1EA1n c\u1EA7n bi\u1EBFt", ins2_p:"Kh\u00EDa c\u1EA1nh h\u00ECnh s\u1EF1 c\u1EE7a vi\u1EC7c l\u00E1i xe khi say \u2014 c\u00E1c t\u1ED9i danh theo B\u1ED9 lu\u1EADt H\u00ECnh s\u1EF1, quy t\u1EAFc hai gi\u1EDD, gi\u1EDBi h\u1EA1n ma t\u00FAy, t\u1EEB ch\u1ED1i v\u00E0 c\u00E1c h\u00ECnh ph\u1EA1t b\u1EAFt bu\u1ED9c.",
+    ins3_tag:"Th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n \u00b7 ICBC", ins3_h:"B\u1ECB th\u01B0\u01A1ng trong tai n\u1EA1n xe c\u01A1 gi\u1EDBi?", ins3_p:"N\u1EBFu b\u1EA1n b\u1ECB th\u01B0\u01A1ng trong m\u1ED9t v\u1EE5 va ch\u1EA1m, c\u00F3 nh\u1EEFng b\u01B0\u1EDBc quan tr\u1ECDng \u0111\u1EC3 b\u1EA3o v\u1EC7 s\u1EE9c kh\u1ECFe v\u00E0 quy\u1EC1n l\u1EE3i c\u1EE7a b\u1EA1n. H\u00E3y li\u00EAn h\u1EC7 \u0111\u1EC3 trao \u0111\u1ED5i.",
+    read_guide:"\u0110\u1ECDc h\u01B0\u1EDBng d\u1EABn \u2192", get_touch:"Li\u00EAn h\u1EC7 \u2192",
+    con_kicker:"Li\u00EAn h\u1EC7", con_title:'Y\u00EAu c\u1EA7u <em>t\u01B0 v\u1EA5n mi\u1EC5n ph\u00ED</em>',
+    con_intro:"Ch\u00FAng t\u00F4i s\u1EBD ph\u1EA3n h\u1ED3i tin nh\u1EAFn c\u1EE7a b\u1EA1n s\u1EDBm nh\u1EA5t c\u00F3 th\u1EC3. T\u01B0 v\u1EA5n ban \u0111\u1EA7u c\u00F3 s\u1EB5n qua \u0111i\u1EC7n tho\u1EA1i ho\u1EB7c tr\u1EF1c ti\u1EBFp t\u1EA1i v\u0103n ph\u00F2ng Metrotown.",
+    lbl_office:"V\u0103n ph\u00F2ng", lbl_tel:"\u0110i\u1EC7n tho\u1EA1i", lbl_fax:"Fax", lbl_email:"Email", view_map:"Xem b\u1EA3n \u0111\u1ED3 \u2192",
+    f_name:"H\u1ECD v\u00E0 t\u00EAn", f_phone:"\u0110i\u1EC7n tho\u1EA1i", f_email:"Email", f_help:"Ch\u00FAng t\u00F4i c\u00F3 th\u1EC3 gi\u00FAp g\u00EC?", ph_name:"T\u00EAn c\u1EE7a b\u1EA1n", ph_msg:"M\u00F4 t\u1EA3 ng\u1EAFn g\u1ECDn t\u00ECnh hu\u1ED1ng c\u1EE7a b\u1EA1n...",
+    send_msg:"G\u1EEDi tin nh\u1EAFn", fnote:"Ch\u00FAng t\u00F4i t\u00F4n tr\u1ECDng quy\u1EC1n ri\u00EAng t\u01B0 v\u00E0 s\u1EBD ph\u1EA3n h\u1ED3i s\u1EDBm nh\u1EA5t c\u00F3 th\u1EC3.",
+    foot_sub:"B\u00E0o ch\u1EEFa h\u00ECnh s\u1EF1 & Th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n", foot_copy:"\u00a9 2026 Edwards & Company. B\u1EA3o l\u01B0u m\u1ECDi quy\u1EC1n.", foot_tag:"Lu\u1EADt s\u01B0 H\u00ECnh s\u1EF1 & Th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n \u00b7 Burnaby, British Columbia"
+  },
+  "zh-Hans": {
+    nav_practice:"\u4E1A\u52A1\u9886\u57DF", nav_team:"\u5F8B\u5E08\u56E2\u961F", nav_service:"\u670D\u52A1\u533A\u57DF", nav_faq:"\u5E38\u89C1\u95EE\u9898", nav_insights:"\u6CD5\u5F8B\u8D44\u8BAF", nav_contact:"\u8054\u7CFB\u6211\u4EEC",
+    lang_label:"\u8BED\u8A00",
+    announce:'\u9762\u4E34\u9A7E\u9A76\u6307\u63A7\u6216\u4EA4\u901A\u4E8B\u6545\u53D7\u4F24\uFF1F<a href="#contact">\u514D\u8D39\u54A8\u8BE2 &rarr;</a>',
+    hero_kicker:"\u4F2F\u7EB3\u6BD4 \u00b7 \u5927\u6E29\u54E5\u534E \u00b7 \u521B\u7ACB\u4E8E1953\u5E74",
+    hero_h1:'\u4F2F\u7EB3\u6BD4\u7684\u5211\u4E8B\u8FA9\u62A4\u4E0E<em>\u4EBA\u8EAB\u4F24\u5BB3</em>\u5F8B\u5E08',
+    hero_lede:"Edwards & Company \u5728\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5404\u5730\u4E3A\u5BA2\u6237\u5904\u7406\u5211\u4E8B\u548C\u4EBA\u8EAB\u4F24\u5BB3\u6848\u4EF6\u3002\u6211\u4EEC\u503E\u542C\u5BA2\u6237\u5FC3\u58F0\uFF0C\u6E05\u6670\u89E3\u91CA\u6CD5\u5F8B\uFF0C\u4E3A\u60A8\u5E94\u5F97\u7684\u7ED3\u679C\u800C\u6218\u3002",
+    free_consult:"\u514D\u8D39\u54A8\u8BE2", call_btn:"\u81F4\u7535 (604) 433-2445",
+    stat_years:"\u5E74\u5EAD\u5BA1\u7ECF\u9A8C", stat_prov:"\u4E2A\u7701\u4EFD", stat_wide:"\u5168\u7701\u670D\u52A1",
+    strip1:"<strong>\u9152\u540E\u9A7E\u9A76</strong> \u00b7 \u8FA9\u62A4", strip2:"<strong>\u673A\u52A8\u8F66\u4E8B\u6545</strong> \u00b7 \u4F24\u5BB3\u7D22\u8D54", strip3:"<strong>\u5371\u9669\u53CA\u7981\u6B62\u9A7E\u9A76</strong>", strip4:"<strong>\u80C7\u4E8B\u9003\u9038</strong> \u00b7 \u8FA9\u62A4",
+    prac_title:'\u4E13\u6CE8\u4E8E<em>\u4E24\u5927\u6838\u5FC3\u9886\u57DF</em>',
+    prac_intro:"\u6211\u4EEC\u7684\u529E\u516C\u5BA4\u4F4D\u4E8E\u4F2F\u7EB3\u6BD4Metrotown\u5730\u533A\u3002\u6211\u4EEC\u51FA\u5EAD\u65B0\u897F\u654F\u65AF\u7279\u3001\u90A6\u67AF\u63D0\u5170\u3001\u7D22\u91CC\u3001\u5217\u6446\u548C\u5317\u6E29\u54E5\u534E\u7684\u6CD5\u9662\uFF0C\u5E76\u5728\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u548C\u963F\u5C14\u4F2F\u5854\u5404\u5730\u51FA\u5EAD\u5BA1\u7406\u6848\u4EF6\u3002",
+    prac_c_h:"\u5211\u4E8B\u8FA9\u62A4", prac_c_p:"\u5728\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5404\u5730\u63D0\u4F9B\u4E13\u4E1A\u5211\u4E8B\u8FA9\u62A4\u3002\u6211\u4EEC\u4E3A\u9762\u4E34\u4E25\u91CD\u6307\u63A7\u7684\u5BA2\u6237\u8FA9\u62A4\uFF0C\u5728BC\u548C\u963F\u5C14\u4F2F\u5854\u6CD5\u9662\u62E5\u6709\u8D85\u8FC740\u5E74\u7684\u5BA1\u7406\u7ECF\u9A8C\u3002",
+    prac_c_1:"\u9152\u540E\u9A7E\u9A76 (DUI)", prac_c_2:"\u80C7\u4E8B\u9003\u9038", prac_c_3:"\u88AB\u7981\u9A7E\u9A76\u671F\u95F4\u9A7E\u9A76", prac_c_4:"\u5371\u9669\u9A7E\u9A76\u9020\u6210\u4EBA\u8EAB\u4F24\u5BB3\u6216\u6B7B\u4EA1",
+    prac_p_h:"\u4EBA\u8EAB\u4F24\u5BB3\u6CD5", prac_p_p:"\u5982\u679C\u60A8\u56E0\u4ED6\u4EBA\u8FC7\u5931\u800C\u53D7\u4F24\uFF0C\u6211\u4EEC\u4F1A\u4E89\u53D6\u60A8\u5E94\u5F97\u7684\u8D54\u507F\u3002\u6211\u4EEC\u4E13\u6CE8\u4E8E\u5927\u6E29\u54E5\u534E\u53CA\u5468\u8FB9\u5730\u533A\u7684\u673A\u52A8\u8F66\u4E8B\u6545\u7D22\u8D54\u3002",
+    prac_p_1:"\u673A\u52A8\u8F66\u4E8B\u6545\u7D22\u8D54", prac_p_2:"\u4F24\u5BB3\u8D54\u507F", prac_p_3:"\u8FC7\u5931\u7D22\u8D54", prac_p_4:"\u4F53\u8D34\u5165\u5FAE\u3001\u4E13\u4E1A\u7684\u4EE3\u7406",
+    about_title:'\u8BA4\u8BC6\u60A8\u7684<em>\u5F8B\u5E08</em>', about_bs:"\u5927\u5F8B\u5E08\u517C\u4E8B\u52A1\u5F8B\u5E08",
+    mem1:"\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5F8B\u5E08\u534F\u4F1A", mem2:"\u52A0\u62FF\u5927\u5F8B\u5E08\u534F\u4F1A", mem3:"BC\u5BA1\u5224\u5F8B\u5E08\u534F\u4F1A",
+    about_role:"\u5211\u4E8B\u4E0E\u4EBA\u8EAB\u4F24\u5BB3 \u00b7 \u673A\u52A8\u8F66\u4E8B\u6545",
+    about_p1:"Brock Edwards \u4E13\u6CE8\u4E8E\u5211\u4E8B\u548C\u4EBA\u8EAB\u4F24\u5BB3\u6CD5\uFF0C\u5C24\u5176\u662F\u673A\u52A8\u8F66\u4E8B\u6545\u3002\u4ED6\u5728\u5361\u5C14\u52A0\u91CC\u5B9E\u4E60\uFF0C\u5904\u7406\u8FC7\u5305\u62EC\u9661\u5BA1\u56E2\u5BA1\u5224\u3001\u5371\u9669\u9A7E\u9A76\u81F4\u6B7B\u548C\u9152\u540E\u9A7E\u9A76\u81F4\u4F24\u5728\u5185\u7684\u5404\u7C7B\u6848\u4EF6\u3002",
+    about_p2:"\u4ED6\u4E8E2001\u5E74\u83B7\u963F\u5C14\u4F2F\u5854\u5F8B\u5E08\u8D44\u683C\uFF0C2004\u5E74\u83B7\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5F8B\u5E08\u8D44\u683C\uFF0C\u62E5\u6709\u8D85\u8FC715\u5E74\u7684\u5F8B\u6240\u7ECF\u9A8C\u3002",
+    serv_kicker:"\u6211\u4EEC\u7684\u670D\u52A1\u533A\u57DF", serv_title:'\u670D\u52A1\u6574\u4E2A<em>\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A</em>',
+    serv_intro:"\u6211\u4EEC\u81F4\u529B\u4E8E\u5728\u5168\u7701\u63D0\u4F9B\u4F18\u8D28\u6CD5\u5F8B\u670D\u52A1\u3002\u529E\u516C\u5BA4\u4F4D\u4E8E\u4F2F\u7EB3\u6BD4Metrotown\uFF0C\u4EA4\u901A\u4FBF\u5229\uFF0C\u670D\u52A1\u5927\u6E29\u54E5\u534E\u5730\u533A\u53CA\u5468\u8FB9\u3002",
+    serv_more:"BC\u5185\u5176\u4ED6\u670D\u52A1\u793E\u533A",
+    ins_title:'\u6CD5\u5F8B\u8D44\u6E90\u4E0E<em>\u6307\u5357</em>',
+    ins_intro:"\u5173\u4E8E\u6211\u4EEC\u6700\u5E38\u5904\u7406\u7684BC\u6CD5\u5F8B\u9886\u57DF\u7684\u901A\u4FD7\u6307\u5357\u3002\u5C3D\u65E9\u4E86\u89E3\u60A8\u7684\u6743\u5229\u548C\u671F\u9650\u81F3\u5173\u91CD\u8981\u3002",
+    ins1_tag:"\u9152\u540E\u9A7E\u9A76 \u00b7 BC\u6CD5\u5F8B", ins1_h:"BC\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4 (IRP)\uFF1A\u5B8C\u6574\u6307\u5357", ins1_p:"Warn\u548CFail\u5904\u7F5A\u3001\u5173\u952E\u76847\u5929\u590D\u5BA1\u671F\u9650\u3001\u5982\u4F55\u6297\u8FA9IRP\u4EE5\u53CA\u5B9E\u9645\u8D39\u7528\u3002BC\u53F8\u673A\u9700\u8981\u4E86\u89E3\u7684\u4E00\u5207\u3002",
+    ins2_tag:"\u5211\u4E8B\u6CD5 \u00b7 BC", ins2_h:"BC\u9152\u540E\u9A7E\u9A76(DUI)\u6307\u63A7\uFF1A\u60A8\u9700\u8981\u4E86\u89E3\u7684\u4E8B", ins2_p:"\u9152\u540E\u9A7E\u9A76\u7684\u5211\u4E8B\u65B9\u9762\u2014\u2014\u300A\u5211\u6CD5\u300B\u4E0B\u7684\u7F6A\u540D\u3001\u4E24\u5C0F\u65F6\u89C4\u5219\u3001\u836F\u7269\u9650\u5236\u3001\u62D2\u7EDD\u68C0\u6D4B\u4EE5\u53CA\u5B9A\u7F6A\u540E\u9762\u4E34\u7684\u5F3A\u5236\u5904\u7F5A\u3002",
+    ins3_tag:"\u4EBA\u8EAB\u4F24\u5BB3 \u00b7 ICBC", ins3_h:"\u5728\u673A\u52A8\u8F66\u4E8B\u6545\u4E2D\u53D7\u4F24\uFF1F", ins3_p:"\u5982\u679C\u60A8\u5728\u78B0\u649E\u4E2D\u53D7\u4F24\uFF0C\u6709\u4E9B\u91CD\u8981\u6B65\u9AA4\u53EF\u4EE5\u4FDD\u62A4\u60A8\u7684\u5065\u5EB7\u548C\u7D22\u8D54\u3002\u8054\u7CFB\u6211\u4EEC\u5546\u8BA8\u60A8\u7684\u60C5\u51B5\u3002",
+    read_guide:"\u9605\u8BFB\u6307\u5357 \u2192", get_touch:"\u8054\u7CFB\u6211\u4EEC \u2192",
+    con_kicker:"\u8054\u7CFB\u6211\u4EEC", con_title:'\u9884\u7EA6\u60A8\u7684<em>\u514D\u8D39\u54A8\u8BE2</em>',
+    con_intro:"\u6211\u4EEC\u4F1A\u5C3D\u5FEB\u56DE\u590D\u60A8\u7684\u4FE1\u606F\u3002\u53EF\u901A\u8FC7\u7535\u8BDD\u6216\u4EB2\u81F4Metrotown\u529E\u516C\u5BA4\u8FDB\u884C\u521D\u6B65\u54A8\u8BE2\u3002",
+    lbl_office:"\u529E\u516C\u5BA4", lbl_tel:"\u7535\u8BDD", lbl_fax:"\u4F20\u771F", lbl_email:"\u7535\u5B50\u90AE\u4EF6", view_map:"\u67E5\u770B\u5730\u56FE \u2192",
+    f_name:"\u59D3\u540D", f_phone:"\u7535\u8BDD", f_email:"\u7535\u5B50\u90AE\u4EF6", f_help:"\u6211\u4EEC\u80FD\u5E2E\u4EC0\u4E48\uFF1F", ph_name:"\u60A8\u7684\u59D3\u540D", ph_msg:"\u7B80\u8981\u63CF\u8FF0\u60A8\u7684\u60C5\u51B5...",
+    send_msg:"\u53D1\u9001\u4FE1\u606F", fnote:"\u6211\u4EEC\u5C0A\u91CD\u60A8\u7684\u9690\u79C1\uFF0C\u5E76\u4F1A\u5C3D\u5FEB\u56DE\u590D\u3002",
+    foot_sub:"\u5211\u4E8B\u8FA9\u62A4\u4E0E\u4EBA\u8EAB\u4F24\u5BB3", foot_copy:"\u00a9 2026 Edwards & Company\u3002\u7248\u6743\u6240\u6709\u3002", foot_tag:"\u5211\u4E8B\u4E0E\u4EBA\u8EAB\u4F24\u5BB3\u5F8B\u5E08 \u00b7 \u4F2F\u7EB3\u6BD4\uFF0C\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A"
+  },
+  "zh-Hant": {
+    nav_practice:"\u696D\u52D9\u9818\u57DF", nav_team:"\u5F8B\u5E2B\u5718\u968A", nav_service:"\u670D\u52D9\u5340\u57DF", nav_faq:"\u5E38\u898B\u554F\u984C", nav_insights:"\u6CD5\u5F8B\u8CC7\u8A0A", nav_contact:"\u806F\u7D61\u6211\u5011",
+    lang_label:"\u8A9E\u8A00",
+    announce:'\u9762\u81E8\u99D5\u99DB\u6307\u63A7\u6216\u4EA4\u901A\u4E8B\u6545\u53D7\u50B7\uFF1F<a href="#contact">\u514D\u8CBB\u8AEE\u8A62 &rarr;</a>',
+    hero_kicker:"\u4F2F\u7D0D\u6BD4 \u00b7 \u5927\u6EAB\u54E5\u83EF \u00b7 \u5275\u7ACB\u65BC1953\u5E74",
+    hero_h1:'\u4F2F\u7D0D\u6BD4\u7684\u5211\u4E8B\u8FAF\u8B77\u8207<em>\u4EBA\u8EAB\u50B7\u5BB3</em>\u5F8B\u5E2B',
+    hero_lede:"Edwards & Company \u5728\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u5404\u5730\u70BA\u5BA2\u6236\u8655\u7406\u5211\u4E8B\u548C\u4EBA\u8EAB\u50B7\u5BB3\u6848\u4EF6\u3002\u6211\u5011\u50BE\u807D\u5BA2\u6236\u5FC3\u8072\uFF0C\u6E05\u6670\u89E3\u91CB\u6CD5\u5F8B\uFF0C\u70BA\u60A8\u61C9\u5F97\u7684\u7D50\u679C\u800C\u6230\u3002",
+    free_consult:"\u514D\u8CBB\u8AEE\u8A62", call_btn:"\u81F4\u96FB (604) 433-2445",
+    stat_years:"\u5E74\u5EAD\u5BE9\u7D93\u9A57", stat_prov:"\u500B\u7701\u4EFD", stat_wide:"\u5168\u7701\u670D\u52D9",
+    strip1:"<strong>\u9152\u5F8C\u99D5\u99DB</strong> \u00b7 \u8FAF\u8B77", strip2:"<strong>\u6A5F\u52D5\u8ECA\u4E8B\u6545</strong> \u00b7 \u50B7\u5BB3\u7D22\u8CE0", strip3:"<strong>\u5371\u96AA\u53CA\u7981\u6B62\u99D5\u99DB</strong>", strip4:"<strong>\u80C7\u4E8B\u902A\u902E</strong> \u00b7 \u8FAF\u8B77",
+    prac_title:'\u5C08\u6CE8\u65BC<em>\u5169\u5927\u6838\u5FC3\u9818\u57DF</em>',
+    prac_intro:"\u6211\u5011\u7684\u8FA6\u516C\u5BA4\u4F4D\u65BC\u4F2F\u7D0D\u6BD4Metrotown\u5730\u5340\u3002\u6211\u5011\u51FA\u5EAD\u65B0\u897F\u654F\u65AF\u7279\u3001\u90A6\u67EF\u63D0\u862D\u3001\u7D22\u91CC\u3001\u5217\u6446\u548C\u5317\u6EAB\u54E5\u83EF\u7684\u6CD5\u9662\uFF0C\u4E26\u5728\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u548C\u4E9E\u4F2F\u9054\u5404\u5730\u51FA\u5EAD\u5BE9\u7406\u6848\u4EF6\u3002",
+    prac_c_h:"\u5211\u4E8B\u8FAF\u8B77", prac_c_p:"\u5728\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u5404\u5730\u63D0\u4F9B\u5C08\u696D\u5211\u4E8B\u8FAF\u8B77\u3002\u6211\u5011\u70BA\u9762\u81E8\u56B4\u91CD\u6307\u63A7\u7684\u5BA2\u6236\u8FAF\u8B77\uFF0C\u5728BC\u548C\u4E9E\u4F2F\u9054\u6CD5\u9662\u64C1\u6709\u8D85\u904E40\u5E74\u7684\u5BE9\u7406\u7D93\u9A57\u3002",
+    prac_c_1:"\u9152\u5F8C\u99D5\u99DB (DUI)", prac_c_2:"\u80C7\u4E8B\u902A\u902E", prac_c_3:"\u88AB\u7981\u99D5\u99DB\u671F\u9593\u99D5\u99DB", prac_c_4:"\u5371\u96AA\u99D5\u99DB\u9020\u6210\u4EBA\u8EAB\u50B7\u5BB3\u6216\u6B7B\u4EA1",
+    prac_p_h:"\u4EBA\u8EAB\u50B7\u5BB3\u6CD5", prac_p_p:"\u5982\u679C\u60A8\u56E0\u4ED6\u4EBA\u904E\u5931\u800C\u53D7\u50B7\uFF0C\u6211\u5011\u6703\u722D\u53D6\u60A8\u61C9\u5F97\u7684\u8CE0\u511F\u3002\u6211\u5011\u5C08\u6CE8\u65BC\u5927\u6EAB\u54E5\u83EF\u53CA\u5468\u908A\u5730\u5340\u7684\u6A5F\u52D5\u8ECA\u4E8B\u6545\u7D22\u8CE0\u3002",
+    prac_p_1:"\u6A5F\u52D5\u8ECA\u4E8B\u6545\u7D22\u8CE0", prac_p_2:"\u50B7\u5BB3\u8CE0\u511F", prac_p_3:"\u904E\u5931\u7D22\u8CE0", prac_p_4:"\u9AD4\u8CBC\u5165\u5FAE\u3001\u5C08\u696D\u7684\u4EE3\u7406",
+    about_title:'\u8A8D\u8B58\u60A8\u7684<em>\u5F8B\u5E2B</em>', about_bs:"\u5927\u5F8B\u5E2B\u517C\u4E8B\u52D9\u5F8B\u5E2B",
+    mem1:"\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u5F8B\u5E2B\u5354\u6703", mem2:"\u52A0\u62FF\u5927\u5F8B\u5E2B\u5354\u6703", mem3:"BC\u5BE9\u5224\u5F8B\u5E2B\u5354\u6703",
+    about_role:"\u5211\u4E8B\u8207\u4EBA\u8EAB\u50B7\u5BB3 \u00b7 \u6A5F\u52D5\u8ECA\u4E8B\u6545",
+    about_p1:"Brock Edwards \u5C08\u6CE8\u65BC\u5211\u4E8B\u548C\u4EBA\u8EAB\u50B7\u5BB3\u6CD5\uFF0C\u5C24\u5176\u662F\u6A5F\u52D5\u8ECA\u4E8B\u6545\u3002\u4ED6\u5728\u5361\u5C14\u52A0\u91CC\u5BE6\u7FD2\uFF0C\u8655\u7406\u904E\u5305\u62EC\u9673\u5BE9\u5718\u5BE9\u5224\u3001\u5371\u96AA\u99D5\u99DB\u81F4\u6B7B\u548C\u9152\u5F8C\u99D5\u99DB\u81F4\u50B7\u5728\u5167\u7684\u5404\u985E\u6848\u4EF6\u3002",
+    about_p2:"\u4ED6\u65BC2001\u5E74\u7372\u4E9E\u4F2F\u9054\u5F8B\u5E2B\u8CC7\u683C\uFF0C2004\u5E74\u7372\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u5F8B\u5E2B\u8CC7\u683C\uFF0C\u64C1\u6709\u8D85\u904E15\u5E74\u7684\u5F8B\u6240\u7D93\u9A57\u3002",
+    serv_kicker:"\u6211\u5011\u7684\u670D\u52D9\u5340\u57DF", serv_title:'\u670D\u52D9\u6574\u500B<em>\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E</em>',
+    serv_intro:"\u6211\u5011\u81F4\u529B\u65BC\u5728\u5168\u7701\u63D0\u4F9B\u512A\u8CEA\u6CD5\u5F8B\u670D\u52D9\u3002\u8FA6\u516C\u5BA4\u4F4D\u65BC\u4F2F\u7D0D\u6BD4Metrotown\uFF0C\u4EA4\u901A\u4FBF\u5229\uFF0C\u670D\u52D9\u5927\u6EAB\u54E5\u83EF\u5730\u5340\u53CA\u5468\u908A\u3002",
+    serv_more:"BC\u5167\u5176\u4ED6\u670D\u52D9\u793E\u5340",
+    ins_title:'\u6CD5\u5F8B\u8CC7\u6E90\u8207<em>\u6307\u5357</em>',
+    ins_intro:"\u95DC\u65BC\u6211\u5011\u6700\u5E38\u8655\u7406\u7684BC\u6CD5\u5F8B\u9818\u57DF\u7684\u901A\u4FD7\u6307\u5357\u3002\u76E1\u65E9\u4E86\u89E3\u60A8\u7684\u6B0A\u5229\u548C\u671F\u9650\u81F3\u95DC\u91CD\u8981\u3002",
+    ins1_tag:"\u9152\u5F8C\u99D5\u99DB \u00b7 BC\u6CD5\u5F8B", ins1_h:"BC\u5373\u6642\u8DEF\u908A\u7981\u99D5\u4EE4 (IRP)\uFF1A\u5B8C\u6574\u6307\u5357", ins1_p:"Warn\u548CFail\u8655\u7F70\u3001\u95DC\u9375\u76847\u5929\u8907\u5BE9\u671F\u9650\u3001\u5982\u4F55\u6297\u8FAFIRP\u4EE5\u53CA\u5BE6\u969B\u8CBB\u7528\u3002BC\u53F8\u6A5F\u9700\u8981\u4E86\u89E3\u7684\u4E00\u5207\u3002",
+    ins2_tag:"\u5211\u4E8B\u6CD5 \u00b7 BC", ins2_h:"BC\u9152\u5F8C\u99D5\u99DB(DUI)\u6307\u63A7\uFF1A\u60A8\u9700\u8981\u4E86\u89E3\u7684\u4E8B", ins2_p:"\u9152\u5F8C\u99D5\u99DB\u7684\u5211\u4E8B\u65B9\u9762\u2014\u2014\u300A\u5211\u6CD5\u300B\u4E0B\u7684\u7F6A\u540D\u3001\u5169\u5C0F\u6642\u898F\u5247\u3001\u85E5\u7269\u9650\u5236\u3001\u62D2\u7D55\u6AA2\u6E2C\u4EE5\u53CA\u5B9A\u7F6A\u5F8C\u9762\u81E8\u7684\u5F37\u5236\u8655\u7F70\u3002",
+    ins3_tag:"\u4EBA\u8EAB\u50B7\u5BB3 \u00b7 ICBC", ins3_h:"\u5728\u6A5F\u52D5\u8ECA\u4E8B\u6545\u4E2D\u53D7\u50B7\uFF1F", ins3_p:"\u5982\u679C\u60A8\u5728\u78B0\u649E\u4E2D\u53D7\u50B7\uFF0C\u6709\u4E9B\u91CD\u8981\u6B65\u9A5F\u53EF\u4EE5\u4FDD\u8B77\u60A8\u7684\u5065\u5EB7\u548C\u7D22\u8CE0\u3002\u806F\u7D61\u6211\u5011\u5546\u8A0E\u60A8\u7684\u60C5\u6CC1\u3002",
+    read_guide:"\u95B1\u8B80\u6307\u5357 \u2192", get_touch:"\u806F\u7D61\u6211\u5011 \u2192",
+    con_kicker:"\u806F\u7D61\u6211\u5011", con_title:'\u9810\u7D04\u60A8\u7684<em>\u514D\u8CBB\u8AEE\u8A62</em>',
+    con_intro:"\u6211\u5011\u6703\u76E1\u5FEB\u56DE\u8986\u60A8\u7684\u8A0A\u606F\u3002\u53EF\u900F\u904E\u96FB\u8A71\u6216\u89AA\u81F3Metrotown\u8FA6\u516C\u5BA4\u9032\u884C\u521D\u6B65\u8AEE\u8A62\u3002",
+    lbl_office:"\u8FA6\u516C\u5BA4", lbl_tel:"\u96FB\u8A71", lbl_fax:"\u50B3\u771F", lbl_email:"\u96FB\u5B50\u90F5\u4EF6", view_map:"\u67E5\u770B\u5730\u5716 \u2192",
+    f_name:"\u59D3\u540D", f_phone:"\u96FB\u8A71", f_email:"\u96FB\u5B50\u90F5\u4EF6", f_help:"\u6211\u5011\u80FD\u5E6B\u4EC0\u9EBC\uFF1F", ph_name:"\u60A8\u7684\u59D3\u540D", ph_msg:"\u7C21\u8981\u63CF\u8FF0\u60A8\u7684\u60C5\u6CC1...",
+    send_msg:"\u767C\u9001\u8A0A\u606F", fnote:"\u6211\u5011\u5C0A\u91CD\u60A8\u7684\u96B1\u79C1\uFF0C\u4E26\u6703\u76E1\u5FEB\u56DE\u8986\u3002",
+    foot_sub:"\u5211\u4E8B\u8FAF\u8B77\u8207\u4EBA\u8EAB\u50B7\u5BB3", foot_copy:"\u00a9 2026 Edwards & Company\u3002\u7248\u6B0A\u6240\u6709\u3002", foot_tag:"\u5211\u4E8B\u8207\u4EBA\u8EAB\u50B7\u5BB3\u5F8B\u5E2B \u00b7 \u4F2F\u7D0D\u6BD4\uFF0C\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E"
+  }
+};
+var LANG_LABEL = { "en":"EN", "vi":"VI", "zh-Hans":"\u7B80", "zh-Hant":"\u7E41" };
+
+function applyLang(lang){
+  var dict = I18N[lang] || I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined) el.textContent = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    var k = el.getAttribute('data-i18n-html');
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k = el.getAttribute('data-i18n-ph');
+    if(dict[k] !== undefined) el.setAttribute('placeholder', dict[k]);
+  });
+  document.documentElement.setAttribute('lang', lang);
+  var cur = document.getElementById('langCurrent');
+  if(cur) cur.textContent = LANG_LABEL[lang] || 'EN';
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+  try{ localStorage.setItem('site_lang', lang); }catch(e){}
+}
+
+(function(){
+  // desktop dropdown open/close
+  var lb = document.getElementById('langBtn'), lm = document.getElementById('langMenu');
+  if(lb && lm){
+    lb.addEventListener('click', function(e){ e.stopPropagation(); lm.classList.toggle('open'); });
+    document.addEventListener('click', function(){ lm.classList.remove('open'); });
+    lm.addEventListener('click', function(e){ e.stopPropagation(); });
+  }
+  // all language buttons (desktop + mobile)
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){
+      applyLang(b.getAttribute('data-lang'));
+      if(lm) lm.classList.remove('open');
+    });
+  });
+  // restore saved language
+  var saved = 'en';
+  try{ saved = localStorage.getItem('site_lang') || 'en'; }catch(e){}
+  if(saved !== 'en') applyLang(saved);
+})();
+</script>
 <script>
   // mobile menu
   (function(){
