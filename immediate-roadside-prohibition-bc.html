@@ -40,7 +40,7 @@
     "logo": { "@type": "ImageObject", "url": "https://bcimpaired.ca/logo.png" }
   },
   "datePublished": "2026-07-28",
-  "dateModified": "2026-07-28",
+  "dateModified": "2026-07-29",
   "mainEntityOfPage": { "@type": "WebPage", "@id": "https://bcimpaired.ca/immediate-roadside-prohibition-bc.html" },
   "about": ["Immediate Roadside Prohibition", "Impaired Driving", "British Columbia Motor Vehicle Act"]
 }
@@ -92,10 +92,27 @@
   .nav{max-width:1140px;margin:0 auto;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
   .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
   .logo-mark{width:42px;height:42px;flex-shrink:0;background:var(--green);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-size:1.3rem;border-radius:3px;}
-  .logo-txt .l1{font-family:'Newsreader',serif;font-size:1.14rem;color:var(--ink);line-height:1.1;white-space:nowrap;}
-  .logo-txt .l2{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:3px;white-space:nowrap;}
+  .logo-txt{display:flex;flex-direction:column;}
+  .logo-txt .l1{display:block;font-family:'Newsreader',serif;font-size:1.14rem;color:var(--ink);line-height:1.15;white-space:nowrap;}
+  .logo-txt .l2{display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:3px;white-space:nowrap;}
   .nav-back{font-size:.82rem;font-weight:600;color:var(--green);text-decoration:none;white-space:nowrap;}
   .nav-back:hover{color:var(--green-bright);}
+  .nav-right2{display:flex;align-items:center;gap:18px;}
+  .lang{position:relative;}
+  .lang-btn{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:8px 12px;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;color:var(--ink-soft);cursor:pointer;white-space:nowrap;transition:border-color .2s;}
+  .lang-btn:hover{border-color:var(--green);}
+  .lang-btn svg{width:15px;height:15px;stroke:var(--green);fill:none;stroke-width:1.6;}
+  .lang-btn .caret{font-size:.6rem;color:var(--muted);}
+  .lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--line);border-radius:5px;box-shadow:0 16px 40px -16px rgba(27,38,32,.3);padding:6px;min-width:200px;z-index:120;display:none;}
+  .lang-menu.open{display:block;}
+  .lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;background:none;border:none;text-align:left;padding:10px 12px;border-radius:3px;font-family:'Outfit',sans-serif;font-size:.86rem;color:var(--ink);cursor:pointer;transition:background .15s;}
+  .lang-menu button:hover{background:var(--paper-2);}
+  .lang-menu button .native{color:var(--muted);font-size:.78rem;}
+  .lang-menu button.active{background:var(--green);color:var(--paper);}
+  .lang-menu button.active .native{color:rgba(245,241,232,.7);}
+  .xlate-note{display:none;background:#fbeede;border:1px solid #e6c79a;border-radius:5px;padding:14px 18px;margin:0 auto 4px;max-width:760px;font-size:.86rem;line-height:1.6;color:#7a5320;}
+  .xlate-note.show{display:block;}
+  @media(max-width:560px){.nav-back{display:none;}}
 
   /* article shell */
   .article-hero{background:var(--green-deep);color:var(--paper);padding:60px 24px 54px;}
@@ -179,12 +196,26 @@
       <span class="logo-mark">E</span>
       <span class="logo-txt"><span class="l1">Edwards &amp; Company</span><span class="l2">Barristers &amp; Solicitors</span></span>
     </a>
-    <a href="index.html" class="nav-back">&larr; Back to Home</a>
+    <div class="nav-right2">
+      <div class="lang">
+        <button class="lang-btn" id="langBtn" aria-label="Select language">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+          <span id="langCurrent">EN</span><span class="caret">&#9662;</span>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button data-lang="en" class="active">English <span class="native">English</span></button>
+          <button data-lang="vi">Vietnamese <span class="native">Ti&#7871;ng Vi&#7879;t</span></button>
+          <button data-lang="zh-Hans">Chinese (Simplified) <span class="native">&#31616;&#20307;&#20013;&#25991;</span></button>
+          <button data-lang="zh-Hant">Chinese (Traditional) <span class="native">&#32321;&#39636;&#20013;&#25991;</span></button>
+        </div>
+      </div>
+      <a href="index.html" class="nav-back">&larr; <span data-i18n="back_home">Back to Home</span></a>
+    </div>
   </div>
 </header>
 
 <div class="article-hero">
-  <div class="ah-in">
+  <div class="ah-in" id="artHero">
     <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Insights &nbsp;/&nbsp; Immediate Roadside Prohibitions</div>
     <span class="kick">Impaired Driving &middot; BC Law</span>
     <h1>Immediate Roadside Prohibitions (IRP) in British Columbia: A Complete Guide</h1>
@@ -194,6 +225,11 @@
 </div>
 
 <main class="article">
+
+  <div class="xlate-note" id="xlateNote"></div>
+
+  <div id="artBody">
+
 
   <p class="lede">An Immediate Roadside Prohibition — almost always called an "IRP" — is the most common way impaired driving is dealt with in British Columbia today. It is fast, it is automatic, and it takes effect the moment the officer hands you the notice. It is also one of the few legal consequences in the province with a deadline measured in days, not months.</p>
 
@@ -238,12 +274,14 @@
   <h2>What an IRP really costs</h2>
   <p>The prohibition itself is only part of the picture. Once towing, storage, program fees, reinstatement, and insurance surcharges are added up, a 90-day IRP frequently costs a driver several thousand dollars. Typical additional costs include:</p>
   <ul>
-    <li><strong>Responsible Driver Program (RDP)</strong> — a remedial education program, currently around $930 including tax.</li>
+    <li><strong>Responsible Driver Program (RDP)</strong> — a remedial education program, currently around $1,200 including tax.</li>
     <li><strong>Ignition Interlock Program (IIP)</strong> — where required, the device runs roughly $1,500 per year, with a minimum term depending on your history.</li>
     <li><strong>ICBC Driver Risk Premium</strong> — an insurance surcharge that can apply for three years following certain prohibitions.</li>
     <li><strong>Towing and 30-day storage</strong> — paid by the driver for impounded vehicles.</li>
   </ul>
   <p>Industry estimates commonly place the all-in cost of an IRP between roughly $600 for a short Warn and $4,600 or more for a Fail. If the prohibition is set aside on review, most of these consequences fall away with it — which is why the review process matters so much.</p>
+
+  <p style="font-size:.92rem;color:var(--muted);">Program and device fees are set by the Province and change periodically. For the most current fee structures for the Responsible Driver Program and Ignition Interlock Program, consult the official source: <a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/roadsafetybc/high-risk-driver/responsible-drivers" target="_blank" rel="noopener">Gov.bc.ca &ndash; Responsible Driver Program</a>.</p>
 
   <h2>How to challenge an IRP: the review process</h2>
   <p>You do not go before a judge to fight an IRP. Instead, you apply for a review decided by an adjudicator at RoadSafetyBC. Here is how it works:</p>
@@ -310,6 +348,7 @@
     <strong>Disclaimer:</strong> This article provides general information about British Columbia law and is not legal advice. It does not create a solicitor-client relationship. Penalties, fees, and program requirements are set by regulation and can change; figures given are approximate and should be confirmed with RoadSafetyBC or with a lawyer. If you have received an Immediate Roadside Prohibition or any driving-related charge, seek advice about your specific situation as soon as possible.
   </div>
 
+  </div>
 </main>
 
 <footer>
@@ -327,5 +366,222 @@
   <div class="foot-bottom">&copy; 2026 Edwards &amp; Company. All rights reserved. &middot; Criminal &amp; Personal Injury Lawyers, Burnaby, British Columbia</div>
 </footer>
 
+
+<script>
+/* ===== IRP article i18n (whole-section swap) ===== */
+var LANG_LABEL={"en":"EN","vi":"VI","zh-Hans":"\u7B80","zh-Hant":"\u7E41"};
+var XNOTE={
+ "vi":"B\u1EA3n d\u1ECBch n\u00E0y ch\u1EC9 nh\u1EB1m m\u1EE5c \u0111\u00EDch thu\u1EADn ti\u1EC7n. B\u1EA3n ti\u1EBFng Anh l\u00E0 b\u1EA3n c\u00F3 gi\u00E1 tr\u1ECB ph\u00E1p l\u00FD. \u0110\u1EC3 \u0111\u01B0\u1EE3c t\u01B0 v\u1EA5n v\u1EC1 tr\u01B0\u1EDDng h\u1EE3p c\u1EE5 th\u1EC3 c\u1EE7a b\u1EA1n, vui l\u00F2ng g\u1ECDi (604) 433-2445.",
+ "zh-Hans":"\u672C\u7FFB\u8BD1\u4EC5\u4F9B\u53C2\u8003\uFF0C\u82F1\u6587\u7248\u672C\u4E3A\u51C6\u3002\u5982\u9700\u9488\u5BF9\u60A8\u5177\u4F53\u60C5\u51B5\u7684\u6CD5\u5F8B\u5EFA\u8BAE\uFF0C\u8BF7\u81F4\u7535 (604) 433-2445\u3002",
+ "zh-Hant":"\u672C\u7FFB\u8B6F\u50C5\u4F9B\u53C3\u8003\uFF0C\u82F1\u6587\u7248\u672C\u70BA\u6E96\u3002\u5982\u9700\u91DD\u5C0D\u60A8\u5177\u9AD4\u60C5\u6CC1\u7684\u6CD5\u5F8B\u5EFA\u8B70\uFF0C\u8ACB\u81F4\u96FB (604) 433-2445\u3002"
+};
+var HERO={
+ "vi":'<div class="breadcrumb"><a href="index.html">Trang ch\u1EE7</a> &nbsp;/&nbsp; B\u00E0i vi\u1EBFt &nbsp;/&nbsp; L\u1EC7nh c\u1EA5m l\u00E1i xe t\u1EE9c th\u1EDDi</div><span class="kick">L\u00E1i xe khi say \u00b7 Lu\u1EADt BC</span><h1>L\u1EC7nh c\u1EA5m l\u00E1i xe t\u1EE9c th\u1EDDi (IRP) t\u1EA1i British Columbia: H\u01B0\u1EDBng d\u1EABn \u0111\u1EA7y \u0111\u1EE7</h1><p class="sub">N\u1EBFu b\u1EA1n b\u1ECB c\u1EA5m l\u00E1i xe ngay t\u1EA1i ch\u1ED7, th\u1EDDi gian \u0111ang tr\u00F4i qua. \u0110\u00E2y l\u00E0 \u00FD ngh\u0129a c\u1EE7a IRP, chi ph\u00ED, v\u00E0 \u2014 quan tr\u1ECDng nh\u1EA5t \u2014 kho\u1EA3ng th\u1EDDi gian ng\u1EAFn b\u1EA1n c\u00F3 \u0111\u1EC3 kh\u00E1ng ngh\u1ECB.</p><div class="article-meta">B\u1EDFi Edwards &amp; Company \u00b7 B\u00E0o ch\u1EEFa h\u00ECnh s\u1EF1 &amp; Th\u01B0\u01A1ng t\u00EDch c\u00E1 nh\u00E2n, Burnaby BC</div>',
+ "zh-Hans":'<div class="breadcrumb"><a href="index.html">\u9996\u9875</a> &nbsp;/&nbsp; \u6CD5\u5F8B\u8D44\u8BAF &nbsp;/&nbsp; \u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4</div><span class="kick">\u9152\u540E\u9A7E\u9A76 \u00b7 BC\u6CD5\u5F8B</span><h1>\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4 (IRP)\uFF1A\u5B8C\u6574\u6307\u5357</h1><p class="sub">\u5982\u679C\u60A8\u5728\u8DEF\u8FB9\u88AB\u7981\u6B62\u9A7E\u9A76\uFF0C\u65F6\u95F4\u5DF2\u7ECF\u5F00\u59CB\u5012\u8BA1\u3002\u4EE5\u4E0B\u662FIRP\u7684\u542B\u4E49\u3001\u8D39\u7528\uFF0C\u4EE5\u53CA\u2014\u2014\u6700\u91CD\u8981\u7684\u2014\u2014\u60A8\u7528\u4EE5\u6297\u8FA9\u7684\u77ED\u6682\u671F\u9650\u3002</p><div class="article-meta">\u7531 Edwards &amp; Company \u00b7 \u5211\u4E8B\u8FA9\u62A4\u4E0E\u4EBA\u8EAB\u4F24\u5BB3\uFF0C\u4F2F\u7EB3\u6BD4BC</div>',
+ "zh-Hant":'<div class="breadcrumb"><a href="index.html">\u9996\u9801</a> &nbsp;/&nbsp; \u6CD5\u5F8B\u8CC7\u8A0A &nbsp;/&nbsp; \u5373\u6642\u8DEF\u908A\u7981\u99D5\u4EE4</div><span class="kick">\u9152\u5F8C\u99D5\u99DB \u00b7 BC\u6CD5\u5F8B</span><h1>\u4E0D\u5217\u985B\u54E5\u502B\u6BD4\u4E9E\u5373\u6642\u8DEF\u908A\u7981\u99D5\u4EE4 (IRP)\uFF1A\u5B8C\u6574\u6307\u5357</h1><p class="sub">\u5982\u679C\u60A8\u5728\u8DEF\u908A\u88AB\u7981\u6B62\u99D5\u99DB\uFF0C\u6642\u9593\u5DF2\u7D93\u958B\u59CB\u5012\u6578\u3002\u4EE5\u4E0B\u662FIRP\u7684\u542B\u7FA9\u3001\u8CBB\u7528\uFF0C\u4EE5\u53CA\u2014\u2014\u6700\u91CD\u8981\u7684\u2014\u2014\u60A8\u7528\u4EE5\u6297\u8FAF\u7684\u77ED\u66AB\u671F\u9650\u3002</p><div class="article-meta">\u7531 Edwards &amp; Company \u00b7 \u5211\u4E8B\u8FAF\u8B77\u8207\u4EBA\u8EAB\u50B7\u5BB3\uFF0C\u4F2F\u7D0D\u6BD4BC</div>'
+};
+var BODY={};
+BODY["vi"]=`<p class="lede">L\u1EC7nh c\u1EA5m l\u00E1i xe t\u1EE9c th\u1EDDi \u2014 g\u1EA7n nh\u01B0 lu\u00F4n \u0111\u01B0\u1EE3c g\u1ECDi l\u00E0 "IRP" \u2014 l\u00E0 c\u00E1ch ph\u1ED5 bi\u1EBFn nh\u1EA5t \u0111\u1EC3 x\u1EED l\u00FD vi\u1EC7c l\u00E1i xe khi say t\u1EA1i British Columbia ng\u00E0y nay. N\u00F3 nhanh ch\u00F3ng, t\u1EF1 \u0111\u1ED9ng v\u00E0 c\u00F3 hi\u1EC7u l\u1EF1c ngay khi c\u1EA3nh s\u00E1t trao cho b\u1EA1n th\u00F4ng b\u00E1o. \u0110\u00E2y c\u0169ng l\u00E0 m\u1ED9t trong s\u1ED1 \u00EDt h\u1EADu qu\u1EA3 ph\u00E1p l\u00FD c\u00F3 th\u1EDDi h\u1EA1n t\u00EDnh b\u1EB1ng ng\u00E0y, kh\u00F4ng ph\u1EA3i b\u1EB1ng th\u00E1ng.</p>
+<p>V\u00EC IRP \u0111\u01B0\u1EE3c ban h\u00E0nh ngay t\u1EA1i ch\u1ED7 ch\u1EE9 kh\u00F4ng ph\u1EA3i t\u1EA1i t\u00F2a \u00E1n, nhi\u1EC1u t\u00E0i x\u1EBF cho r\u1EB1ng kh\u00F4ng th\u1EC3 l\u00E0m g\u00EC \u0111\u01B0\u1EE3c. \u0110i\u1EC1u \u0111\u00F3 kh\u00F4ng \u0111\u00FAng. C\u00F3 m\u1ED9t quy tr\u00ECnh xem x\u00E9t ch\u00EDnh th\u1EE9c \u2014 nh\u01B0ng th\u1EDDi gian r\u1EA5t ng\u1EAFn. H\u01B0\u1EDBng d\u1EABn n\u00E0y gi\u1EA3i th\u00EDch c\u00E1ch IRP ho\u1EA1t \u0111\u1ED9ng, c\u00E1c h\u00ECnh ph\u1EA1t \u00E1p d\u1EE5ng v\u00E0 quy tr\u00ECnh xem x\u00E9t.</p>
+<div class="alert"><div class="at">Th\u1EDDi h\u1EA1n 7 ng\u00E0y</div><p>B\u1EA1n ch\u1EC9 c\u00F3 <strong>7 ng\u00E0y theo l\u1ECBch</strong> k\u1EC3 t\u1EEB ng\u00E0y IRP \u0111\u01B0\u1EE3c t\u1ED1ng \u0111\u1EA1t \u0111\u1EC3 n\u1ED9p \u0111\u01A1n xem x\u00E9t v\u1EDBi RoadSafetyBC. Kh\u00F4ng ph\u1EA3i 7 ng\u00E0y l\u00E0m vi\u1EC7c \u2014 7 ng\u00E0y, bao g\u1ED3m c\u1EA3 cu\u1ED1i tu\u1EA7n v\u00E0 ng\u00E0y l\u1EC5. N\u1EBFu b\u1EA1n \u0111ang c\u00E2n nh\u1EAFc kh\u00E1ng ngh\u1ECB, h\u00E3y li\u00EAn h\u1EC7 lu\u1EADt s\u01B0 ngay. G\u1ECDi cho ch\u00FAng t\u00F4i theo s\u1ED1 <strong>(604) 433-2445</strong>.</p></div>
+<h2>IRP l\u00E0 g\u00EC?</h2>
+<p>L\u1EC7nh c\u1EA5m l\u00E1i xe t\u1EE9c th\u1EDDi l\u00E0 m\u1ED9t <strong>h\u00ECnh ph\u1EA1t h\u00E0nh ch\u00EDnh</strong> do c\u1EA3nh s\u00E1t ban h\u00E0nh theo <em>Lu\u1EADt Xe c\u01A1 gi\u1EDBi</em> c\u1EE7a British Columbia, do C\u01A1 quan Qu\u1EA3n l\u00FD Xe c\u01A1 gi\u1EDBi qu\u1EA3n l\u00FD th\u00F4ng qua RoadSafetyBC. Quan tr\u1ECDng l\u00E0, IRP <strong>kh\u00F4ng ph\u1EA3i l\u00E0 c\u00E1o bu\u1ED9c h\u00ECnh s\u1EF1</strong> \u2014 vi\u1EC7c nh\u1EADn m\u1ED9t IRP kh\u00F4ng t\u1EF1 \u0111\u1ED9ng t\u1EA1o cho b\u1EA1n l\u00FD l\u1ECBch h\u00ECnh s\u1EF1.</p>
+<p>C\u1EA3nh s\u00E1t c\u00F3 th\u1EC3 y\u00EAu c\u1EA7u b\u1EA5t k\u1EF3 t\u00E0i x\u1EBF n\u00E0o \u0111ang \u0111i\u1EC1u khi\u1EC3n xe cung c\u1EA5p m\u1EABu h\u01A1i th\u1EDF v\u00E0o Thi\u1EBFt b\u1ECB s\u00E0ng l\u1ECDc \u0111\u01B0\u1EE3c ph\u00EA duy\u1EC7t (ASD). K\u1EBFt qu\u1EA3 c\u1EE7a thi\u1EBFt b\u1ECB quy\u1EBFt \u0111\u1ECBnh lo\u1EA1i l\u1EC7nh c\u1EA5m n\u00E0o s\u1EBD \u00E1p d\u1EE5ng.</p>
+<h2>Warn v\u00E0 Fail: hai k\u1EBFt qu\u1EA3 quan tr\u1ECDng</h2>
+<p>Thi\u1EBFt b\u1ECB cho ra m\u1ED9t trong hai k\u1EBFt qu\u1EA3 d\u1EABn \u0111\u1EBFn IRP:</p>
+<ul><li><strong>Warn (C\u1EA3nh b\u00E1o)</strong> \u2014 t\u01B0\u01A1ng \u1EE9ng v\u1EDBi n\u1ED3ng \u0111\u1ED9 c\u1ED3n trong m\u00E1u kho\u1EA3ng 0,05 \u0111\u1EBFn 0,08. Warn d\u1EABn \u0111\u1EBFn l\u1EC7nh c\u1EA5m ng\u1EAFn h\u01A1n, t\u0103ng d\u1EA7n theo m\u1ED7i l\u1EA7n t\u00E1i ph\u1EA1m trong 5 n\u0103m.</li><li><strong>Fail (Kh\u00F4ng \u0111\u1EA1t)</strong> \u2014 t\u01B0\u01A1ng \u1EE9ng v\u1EDBi n\u1ED3ng \u0111\u1ED9 c\u1ED3n 0,08 tr\u1EDF l\u00EAn, d\u1EABn \u0111\u1EBFn l\u1EC7nh c\u1EA5m 90 ng\u00E0y. T\u1EEB ch\u1ED1i cung c\u1EA5p m\u1EABu h\u01A1i th\u1EDF c\u00F3 <strong>h\u1EADu qu\u1EA3 t\u01B0\u01A1ng t\u1EF1 nh\u01B0 Fail</strong>.</li></ul>
+<p>B\u1EA1n c\u00F3 quy\u1EC1n y\u00EAu c\u1EA7u m\u1EABu th\u1EE9 hai tr\u00EAn thi\u1EBFt b\u1ECB kh\u00E1c, v\u00E0 l\u1EA5y k\u1EBFt qu\u1EA3 th\u1EA5p h\u01A1n. Vi\u1EC7c quy\u1EC1n \u0111\u00F3 c\u00F3 \u0111\u01B0\u1EE3c t\u00F4n tr\u1ECDng hay kh\u00F4ng l\u00E0 \u0111i\u1EC1u lu\u1EADt s\u01B0 s\u1EBD xem x\u00E9t.</p>
+<h2>T\u1ED5ng quan h\u00ECnh ph\u1EA1t IRP</h2>
+<p>H\u1EADu qu\u1EA3 t\u0103ng theo k\u1EBFt qu\u1EA3 \u0111o v\u00E0 c\u00E1c l\u1EC7nh c\u1EA5m tr\u01B0\u1EDBc \u0111\u00F3. C\u00E1c con s\u1ED1 d\u01B0\u1EDBi \u0111\u00E2y ph\u1EA3n \u00E1nh khung chung, nh\u01B0ng m\u1EE9c ph\u1EA1t v\u00E0 ph\u00ED c\u1EE5 th\u1EC3 do quy \u0111\u1ECBnh \u1EA5n \u0111\u1ECBnh v\u00E0 thay \u0111\u1ED5i theo th\u1EDDi gian \u2014 lu\u00F4n x\u00E1c nh\u1EADn s\u1ED1 ti\u1EC1n hi\u1EC7n t\u1EA1i v\u1EDBi RoadSafetyBC.</p>
+<div class="tbl-wrap"><table><thead><tr><th>K\u1EBFt qu\u1EA3</th><th>Th\u1EDDi h\u1EA1n c\u1EA5m</th><th>H\u1EADu qu\u1EA3 ch\u00EDnh</th></tr></thead><tbody>
+<tr><td>Warn (l\u1EA7n 1)</td><td>3 ng\u00E0y</td><td>Ph\u1EA1t ti\u1EC1n (kho\u1EA3ng $200), ph\u00ED ph\u1EE5c h\u1ED3i b\u1EB1ng l\u00E1i (kho\u1EA3ng $250), c\u00F3 th\u1EC3 t\u1ECBch thu xe</td></tr>
+<tr><td>Warn (l\u1EA7n 2)</td><td>7 ng\u00E0y</td><td>Ph\u1EA1t ti\u1EC1n cao h\u01A1n, ph\u00ED ph\u1EE5c h\u1ED3i, c\u00F3 th\u1EC3 t\u1ECBch thu xe</td></tr>
+<tr><td>Warn (l\u1EA7n 3+)</td><td>30 ng\u00E0y</td><td>Ph\u1EA1t ti\u1EC1n cao h\u01A1n (kho\u1EA3ng $400), b\u1EAFt bu\u1ED9c tham gia Ch\u01B0\u01A1ng tr\u00ECnh L\u00E1i xe C\u00F3 tr\u00E1ch nhi\u1EC7m, c\u00F3 th\u1EC3 l\u1EAFp Kh\u00F3a c\u1ED3n, b\u1EAFt bu\u1ED9c t\u1ECBch thu xe</td></tr>
+<tr><td>Fail / T\u1EEB ch\u1ED1i</td><td>90 ng\u00E0y</td><td>T\u1ECBch thu xe 30 ng\u00E0y, ph\u1EA1t ti\u1EC1n (kho\u1EA3ng $500), ph\u00ED ph\u1EE5c h\u1ED3i (kho\u1EA3ng $250), b\u1EAFt bu\u1ED9c Ch\u01B0\u01A1ng tr\u00ECnh L\u00E1i xe C\u00F3 tr\u00E1ch nhi\u1EC7m, c\u00F3 th\u1EC3 l\u1EAFp Kh\u00F3a c\u1ED3n</td></tr>
+</tbody></table></div>
+<p>Fail ho\u1EB7c t\u1EEB ch\u1ED1i c\u0169ng \u0111\u01B0\u1EE3c ghi v\u0129nh vi\u1EC5n v\u00E0o h\u1ED3 s\u01A1 l\u00E1i xe c\u1EE7a b\u1EA1n, m\u1EB7c d\u00F9 kh\u00F4ng ph\u1EA3i l\u00E0 k\u1EBFt \u00E1n h\u00ECnh s\u1EF1.</p>
+<h2>Chi ph\u00ED th\u1EF1c s\u1EF1 c\u1EE7a IRP</h2>
+<p>B\u1EA3n th\u00E2n l\u1EC7nh c\u1EA5m ch\u1EC9 l\u00E0 m\u1ED9t ph\u1EA7n. Khi c\u1ED9ng th\u00EAm ph\u00ED k\u00E9o xe, l\u01B0u kho, ph\u00ED ch\u01B0\u01A1ng tr\u00ECnh, ph\u1EE5c h\u1ED3i v\u00E0 ph\u1EE5 ph\u00ED b\u1EA3o hi\u1EC3m, m\u1ED9t IRP 90 ng\u00E0y th\u01B0\u1EDDng khi\u1EBFn t\u00E0i x\u1EBF t\u1ED1n v\u00E0i ngh\u00ECn \u0111\u00F4 la. C\u00E1c chi ph\u00ED th\u01B0\u1EDDng g\u1EB7p bao g\u1ED3m:</p>
+<ul><li><strong>Ch\u01B0\u01A1ng tr\u00ECnh L\u00E1i xe C\u00F3 tr\u00E1ch nhi\u1EC7m (RDP)</strong> \u2014 ch\u01B0\u01A1ng tr\u00ECnh gi\u00E1o d\u1EE5c, hi\u1EC7n kho\u1EA3ng $1.200 bao g\u1ED3m thu\u1EBF.</li><li><strong>Ch\u01B0\u01A1ng tr\u00ECnh Kh\u00F3a c\u1ED3n (IIP)</strong> \u2014 khi \u0111\u01B0\u1EE3c y\u00EAu c\u1EA7u, thi\u1EBFt b\u1ECB t\u1ED1n kho\u1EA3ng $1.500 m\u1ED7i n\u0103m.</li><li><strong>Ph\u00ED R\u1EE7i ro T\u00E0i x\u1EBF ICBC</strong> \u2014 ph\u1EE5 ph\u00ED b\u1EA3o hi\u1EC3m c\u00F3 th\u1EC3 \u00E1p d\u1EE5ng trong 3 n\u0103m.</li><li><strong>K\u00E9o xe v\u00E0 l\u01B0u kho 30 ng\u00E0y</strong> \u2014 do t\u00E0i x\u1EBF chi tr\u1EA3.</li></ul>
+<p>\u01AF\u1EDBc t\u00EDnh th\u01B0\u1EDDng \u0111\u1EB7t t\u1ED5ng chi ph\u00ED c\u1EE7a m\u1ED9t IRP t\u1EEB kho\u1EA3ng $600 cho Warn ng\u1EAFn \u0111\u1EBFn $4.600 ho\u1EB7c h\u01A1n cho Fail. N\u1EBFu l\u1EC7nh c\u1EA5m \u0111\u01B0\u1EE3c h\u1EE7y sau xem x\u00E9t, h\u1EA7u h\u1EBFt c\u00E1c h\u1EADu qu\u1EA3 n\u00E0y c\u0169ng bi\u1EBFn m\u1EA5t \u2014 \u0111\u00F3 l\u00E0 l\u00FD do quy tr\u00ECnh xem x\u00E9t r\u1EA5t quan tr\u1ECDng.</p>
+<p style="font-size:.92rem;color:var(--muted);">Ph\u00ED ch\u01B0\u01A1ng tr\u00ECnh v\u00E0 thi\u1EBFt b\u1ECB do T\u1EC9nh bang \u1EA5n \u0111\u1ECBnh v\u00E0 thay \u0111\u1ED5i \u0111\u1ECBnh k\u1EF3. \u0110\u1EC3 bi\u1EBFt m\u1EE9c ph\u00ED hi\u1EC7n t\u1EA1i, xem ngu\u1ED3n ch\u00EDnh th\u1EE9c: <a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/roadsafetybc/high-risk-driver/responsible-drivers" target="_blank" rel="noopener">Gov.bc.ca \u2013 Responsible Driver Program</a>.</p>
+<h2>C\u00E1ch kh\u00E1ng ngh\u1ECB IRP: quy tr\u00ECnh xem x\u00E9t</h2>
+<p>B\u1EA1n kh\u00F4ng ra t\u00F2a \u0111\u1EC3 kh\u00E1ng ngh\u1ECB IRP. Thay v\u00E0o \u0111\u00F3, b\u1EA1n n\u1ED9p \u0111\u01A1n xem x\u00E9t do m\u1ED9t th\u1EA9m tra vi\u00EAn t\u1EA1i RoadSafetyBC quy\u1EBFt \u0111\u1ECBnh. Quy tr\u00ECnh nh\u01B0 sau:</p>
+<div class="keybox"><div class="kb-l">Th\u00F4ng tin ch\u00EDnh v\u1EC1 vi\u1EC7c xem x\u00E9t</div><ul>
+<li><strong>Th\u1EDDi h\u1EA1n:</strong> n\u1ED9p \u0111\u01A1n trong v\u00F2ng 7 ng\u00E0y theo l\u1ECBch k\u1EC3 t\u1EEB khi \u0111\u01B0\u1EE3c t\u1ED1ng \u0111\u1EA1t.</li>
+<li><strong>C\u00E1ch n\u1ED9p:</strong> tr\u1EF1c tuy\u1EBFn ho\u1EB7c tr\u1EF1c ti\u1EBFp t\u1EA1i v\u0103n ph\u00F2ng c\u1EA5p b\u1EB1ng l\u00E1i ICBC.</li>
+<li><strong>Ph\u00ED:</strong> kho\u1EA3ng $100 cho xem x\u00E9t b\u1EB1ng v\u0103n b\u1EA3n, ho\u1EB7c $200 cho xem x\u00E9t b\u1EB1ng mi\u1EC7ng (qua \u0111i\u1EC7n tho\u1EA1i).</li>
+<li><strong>Lo\u1EA1i:</strong> xem x\u00E9t b\u1EB1ng v\u0103n b\u1EA3n \u00E1p d\u1EE5ng cho m\u1ECDi IRP; xem x\u00E9t b\u1EB1ng mi\u1EC7ng th\u01B0\u1EDDng ch\u1EC9 d\u00E0nh cho l\u1EC7nh c\u1EA5m 30 v\u00E0 90 ng\u00E0y.</li>
+<li><strong>H\u00ECnh th\u1EE9c:</strong> xem x\u00E9t d\u1EF1a tr\u00EAn h\u1ED3 s\u01A1 v\u00E0 b\u1EA3n \u0111\u1EC7 tr\u00ECnh \u2014 kh\u00F4ng c\u00F3 phi\u00EAn t\u00F2a.</li>
+<li><strong>Ngh\u0129a v\u1EE5 ch\u1EE9ng minh:</strong> b\u1EA1n, ng\u01B0\u1EDDi n\u1ED9p \u0111\u01A1n, ph\u1EA3i ch\u1EE9ng minh l\u1EC7nh c\u1EA5m kh\u00F4ng n\u00EAn \u0111\u01B0\u1EE3c gi\u1EEF.</li>
+</ul></div>
+<p>V\u00EC ngh\u0129a v\u1EE5 ch\u1EE9ng minh thu\u1ED9c v\u1EC1 t\u00E0i x\u1EBF v\u00E0 th\u1EDDi gian r\u1EA5t g\u1EA5p, ch\u1EA5t l\u01B0\u1EE3ng c\u1EE7a b\u1EA3n \u0111\u1EC7 tr\u00ECnh v\u00E0 b\u1EB1ng ch\u1EE9ng th\u01B0\u1EDDng quy\u1EBFt \u0111\u1ECBnh k\u1EBFt qu\u1EA3. \u0110\u00E2y l\u00E0 n\u01A1i lu\u1EADt s\u01B0 c\u00F3 kinh nghi\u1EC7m t\u1EA1o kh\u00E1c bi\u1EC7t l\u1EDBn nh\u1EA5t.</p>
+<h2>C\u0103n c\u1EE9 \u0111\u1EC3 kh\u00E1ng ngh\u1ECB IRP</h2>
+<p>Th\u1EA9m tra vi\u00EAn c\u00F3 th\u1EC3 h\u1EE7y IRP khi c\u00E1c y\u00EAu c\u1EA7u ph\u00E1p l\u00FD kh\u00F4ng \u0111\u01B0\u1EE3c \u0111\u00E1p \u1EE9ng. C\u00E1c c\u0103n c\u1EE9 ph\u1ED5 bi\u1EBFn m\u00E0 lu\u1EADt s\u01B0 s\u1EBD \u0111i\u1EC1u tra bao g\u1ED3m:</p>
+<ul><li>C\u1EA3nh s\u00E1t c\u00F3 c\u0103n c\u1EE9 h\u1EE3p ph\u00E1p \u0111\u1EC3 y\u00EAu c\u1EA7u m\u1EABu h\u01A1i th\u1EDF hay kh\u00F4ng.</li><li>Thi\u1EBFt b\u1ECB s\u00E0ng l\u1ECDc c\u00F3 \u0111\u00E1ng tin c\u1EADy, \u0111\u01B0\u1EE3c b\u1EA3o tr\u00EC v\u00E0 hi\u1EC7u chu\u1EA9n \u0111\u00FAng c\u00E1ch hay kh\u00F4ng.</li><li>Quy\u1EC1n \u0111\u01B0\u1EE3c ki\u1EC3m tra l\u1EA7n hai tr\u00EAn thi\u1EBFt b\u1ECB kh\u00E1c c\u00F3 \u0111\u01B0\u1EE3c t\u00F4n tr\u1ECDng hay kh\u00F4ng.</li><li>Thi\u1EBFt b\u1ECB c\u00F3 \u0111\u01B0\u1EE3c v\u1EADn h\u00E0nh \u0111\u00FAng c\u00E1ch hay kh\u00F4ng.</li><li>B\u1EA1n c\u00F3 th\u1EF1c s\u1EF1 l\u00E0 ng\u01B0\u1EDDi \u0111ang l\u00E1i xe hay kh\u00F4ng.</li><li>C\u1EA3nh s\u00E1t c\u00F3 tu\u00E2n theo m\u1ECDi b\u01B0\u1EDBc th\u1EE7 t\u1EE5c hay kh\u00F4ng.</li></ul>
+<p>Kh\u00F4ng ph\u1EA3i v\u1EE5 n\u00E0o c\u0169ng c\u00F3 c\u0103n c\u1EE9 kh\u1EA3 thi, v\u00E0 m\u1ED9t lu\u1EADt s\u01B0 c\u00F3 tr\u00E1ch nhi\u1EC7m s\u1EBD n\u00F3i th\u1EADt li\u1EC7u vi\u1EC7c kh\u00E1ng ngh\u1ECB c\u00F3 \u0111\u00E1ng theo \u0111u\u1ED5i hay kh\u00F4ng.</p>
+<h2>N\u1EBFu vi\u1EC7c xem x\u00E9t kh\u00F4ng th\u00E0nh c\u00F4ng?</h2>
+<p>Quy\u1EBFt \u0111\u1ECBnh xem x\u00E9t c\u1EE7a RoadSafetyBC l\u00E0 chung th\u1EA9m \u1EDF c\u1EA5p h\u00E0nh ch\u00EDnh. N\u1EBFu \u0111\u01A1n b\u1ECB b\u00E1c, con \u0111\u01B0\u1EDDng duy nh\u1EA5t c\u00F2n l\u1EA1i l\u00E0 <strong>xem x\u00E9t t\u01B0 ph\u00E1p</strong> t\u1EA1i T\u00F2a Th\u01B0\u1EE3ng th\u1EA9m British Columbia. C\u00F3 th\u1EDDi hi\u1EC7u cho vi\u1EC7c n\u00E0y, n\u00EAn m\u1ED9t l\u1EA7n n\u1EEFa, th\u1EDDi gian r\u1EA5t quan tr\u1ECDng.</p>
+<h2>IRP so v\u1EDBi c\u00E1o bu\u1ED9c h\u00ECnh s\u1EF1</h2>
+<p>K\u1EC3 t\u1EEB khi BC m\u1EDF r\u1ED9ng h\u1EC7 th\u1ED1ng h\u00E0nh ch\u00EDnh, h\u1EA7u h\u1EBFt c\u00E1c tr\u01B0\u1EDDng h\u1EE3p l\u00E1i xe khi say hi\u1EC7n \u0111\u01B0\u1EE3c x\u1EED l\u00FD qua h\u1EC7 th\u1ED1ng IRP thay v\u00EC t\u00F2a h\u00ECnh s\u1EF1. \u0110i\u1EC1u n\u00E0y n\u00F3i chung c\u00F3 l\u1EE3i cho t\u00E0i x\u1EBF \u2014 kh\u00F4ng c\u00F3 l\u00FD l\u1ECBch h\u00ECnh s\u1EF1 v\u00E0 gi\u1EA3i quy\u1EBFt nhanh h\u01A1n. Tuy nhi\u00EAn, hai \u0111i\u1EC1u n\u00E0y kh\u00F4ng lo\u1EA1i tr\u1EEB l\u1EABn nhau: b\u1EA1n c\u00F3 th\u1EC3 nh\u1EADn IRP <strong>v\u00E0</strong> m\u1ED9t c\u00E1o bu\u1ED9c ri\u00EAng theo B\u1ED9 lu\u1EADt H\u00ECnh s\u1EF1 t\u1EEB c\u00F9ng m\u1ED9t s\u1EF1 vi\u1EC7c.</p>
+<div class="alert" style="background:var(--card);border-color:var(--line);border-left-color:var(--green);"><div class="at">C\u0169ng \u0111\u1ED1i m\u1EB7t v\u1EDBi c\u00E1o bu\u1ED9c h\u00ECnh s\u1EF1?</div><p>N\u1EBFu v\u1EE5 vi\u1EC7c c\u1EE7a b\u1EA1n li\u00EAn quan \u0111\u1EBFn c\u00E1o bu\u1ED9c l\u00E1i xe khi say theo B\u1ED9 lu\u1EADt H\u00ECnh s\u1EF1, h\u01B0\u1EDBng d\u1EABn \u0111i k\u00E8m c\u1EE7a ch\u00FAng t\u00F4i gi\u1EA3i th\u00EDch c\u00E1c t\u1ED9i danh v\u00E0 h\u00ECnh ph\u1EA1t b\u1EAFt bu\u1ED9c. <a href="dui-impaired-driving-charges-bc.html" style="color:var(--green);font-weight:600;">\u0110\u1ECDc: C\u00E1o bu\u1ED9c l\u00E1i xe khi say (DUI) \u1EDF BC \u2192</a></p></div>
+<h2>Edwards &amp; Company c\u00F3 th\u1EC3 gi\u00FAp g\u00EC</h2>
+<p>C\u00F4ng ty ch\u00FAng t\u00F4i c\u00F3 nhi\u1EC1u th\u1EADp k\u1EF7 kinh nghi\u1EC7m x\u00E9t x\u1EED b\u00E0o ch\u1EEFa c\u00E1c v\u1EE5 xe c\u01A1 gi\u1EDBi v\u00E0 l\u00E1i xe khi say t\u1EA1i British Columbia v\u00E0 Alberta. Khi b\u1EA1n thu\u00EA ch\u00FAng t\u00F4i cho m\u1ED9t IRP, ch\u00FAng t\u00F4i xem x\u00E9t l\u1EC7nh c\u1EA5m t\u1EEB \u0111\u1EA7u, x\u00E1c \u0111\u1ECBnh c\u0103n c\u1EE9 m\u1EA1nh nh\u1EA5t v\u00E0 chu\u1EA9n b\u1ECB \u0111\u01A1n xem x\u00E9t thay b\u1EA1n.</p>
+<p>Quan tr\u1ECDng nh\u1EA5t, ch\u00FAng t\u00F4i h\u00E0nh \u0111\u1ED9ng nhanh, v\u00EC th\u1EDDi h\u1EA1n 7 ng\u00E0y kh\u00F4ng cho ph\u00E9p ch\u1EDD \u0111\u1EE3i.</p>
+<div class="cta"><h3>Nh\u1EADn IRP? \u0110\u1EEBng ch\u1EDD \u0111\u1EE3i.</h3><p>Th\u1EDDi h\u1EA1n n\u1ED9p \u0111\u01A1n xem x\u00E9t ch\u1EC9 c\u00F3 7 ng\u00E0y k\u1EC3 t\u1EEB ng\u00E0y \u0111\u01B0\u1EE3c t\u1ED1ng \u0111\u1EA1t. H\u00E3y li\u00EAn h\u1EC7 ngay h\u00F4m nay.</p><div class="cta-btns"><a href="tel:6044332445" class="btn btn-brass">G\u1ECDi (604) 433-2445</a><a href="index.html#contact" class="btn btn-ghost">G\u1EEDi tin nh\u1EAFn</a></div></div>
+<div class="faq-block"><h2>C\u00E2u h\u1ECFi th\u01B0\u1EDDng g\u1EB7p</h2>
+<div class="faq-i"><h3>T\u00F4i c\u00F3 bao nhi\u00EAu th\u1EDDi gian \u0111\u1EC3 kh\u00E1ng ngh\u1ECB IRP \u1EDF BC?</h3><p>B\u1EA1n c\u00F3 7 ng\u00E0y theo l\u1ECBch k\u1EC3 t\u1EEB ng\u00E0y l\u1EC7nh c\u1EA5m \u0111\u01B0\u1EE3c t\u1ED1ng \u0111\u1EA1t \u0111\u1EC3 n\u1ED9p \u0111\u01A1n xem x\u00E9t v\u1EDBi RoadSafetyBC. \u0110\u00E2y l\u00E0 th\u1EDDi h\u1EA1n nghi\u00EAm ng\u1EB7t.</p></div>
+<div class="faq-i"><h3>IRP c\u00F3 ph\u1EA3i l\u00E0 c\u00E1o bu\u1ED9c h\u00ECnh s\u1EF1 kh\u00F4ng?</h3><p>Kh\u00F4ng. IRP l\u00E0 h\u00ECnh ph\u1EA1t h\u00E0nh ch\u00EDnh theo Lu\u1EADt Xe c\u01A1 gi\u1EDBi, n\u00EAn t\u1EF1 n\u00F3 kh\u00F4ng t\u1EA1o l\u00FD l\u1ECBch h\u00ECnh s\u1EF1. Tuy nhi\u00EAn n\u00F3 c\u00F3 th\u1EC3 \u0111i k\u00E8m m\u1ED9t c\u00E1o bu\u1ED9c h\u00ECnh s\u1EF1 ri\u00EAng.</p></div>
+<div class="faq-i"><h3>IRP c\u00F3 th\u1EC3 b\u1ECB h\u1EE7y kh\u00F4ng?</h3><p>C\u00F3. Th\u1EA9m tra vi\u00EAn c\u00F3 th\u1EC3 h\u1EE7y IRP n\u1EBFu c\u00E1c y\u00EAu c\u1EA7u ph\u00E1p l\u00FD kh\u00F4ng \u0111\u01B0\u1EE3c \u0111\u00E1p \u1EE9ng \u2014 v\u00ED d\u1EE5 thi\u1EBFt b\u1ECB kh\u00F4ng \u0111\u00E1ng tin c\u1EADy ho\u1EB7c kh\u00F4ng c\u00F3 c\u0103n c\u1EE9 h\u1EE3p ph\u00E1p.</p></div>
+<div class="faq-i"><h3>K\u1EBFt qu\u1EA3 Fail ngh\u0129a l\u00E0 g\u00EC?</h3><p>Fail th\u01B0\u1EDDng t\u01B0\u01A1ng \u1EE9ng v\u1EDBi n\u1ED3ng \u0111\u1ED9 c\u1ED3n 0,08 tr\u1EDF l\u00EAn v\u00E0 d\u1EABn \u0111\u1EBFn l\u1EC7nh c\u1EA5m 90 ng\u00E0y, t\u1ECBch thu xe 30 ng\u00E0y v\u00E0 c\u00E1c h\u00ECnh ph\u1EA1t kh\u00E1c. T\u1EEB ch\u1ED1i cung c\u1EA5p m\u1EABu c\u00F3 h\u1EADu qu\u1EA3 t\u01B0\u01A1ng t\u1EF1.</p></div>
+</div>
+<div class="disclaimer"><strong>Mi\u1EC5n tr\u1EEB tr\u00E1ch nhi\u1EC7m:</strong> B\u00E0i vi\u1EBFt n\u00E0y cung c\u1EA5p th\u00F4ng tin chung v\u1EC1 lu\u1EADt British Columbia v\u00E0 kh\u00F4ng ph\u1EA3i l\u00E0 t\u01B0 v\u1EA5n ph\u00E1p l\u00FD. N\u00F3 kh\u00F4ng t\u1EA1o m\u1ED1i quan h\u1EC7 lu\u1EADt s\u01B0\u2013kh\u00E1ch h\u00E0ng. C\u00E1c h\u00ECnh ph\u1EA1t v\u00E0 ph\u00ED c\u00F3 th\u1EC3 thay \u0111\u1ED5i; c\u00E1c con s\u1ED1 ch\u1EC9 l\u00E0 \u01B0\u1EDBc t\u00EDnh v\u00E0 n\u00EAn \u0111\u01B0\u1EE3c x\u00E1c nh\u1EADn v\u1EDBi RoadSafetyBC ho\u1EB7c lu\u1EADt s\u01B0.</div>`;
+
+BODY["zh-Hans"]=`<p class="lede">\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4\u2014\u2014\u901A\u5E38\u7B80\u79F0"IRP"\u2014\u2014\u662F\u5982\u4ECA\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5904\u7406\u9152\u540E\u9A7E\u9A76\u6700\u5E38\u89C1\u7684\u65B9\u5F0F\u3002\u5B83\u5FEB\u901F\u3001\u81EA\u52A8\uFF0C\u5E76\u5728\u8B66\u5B98\u5C06\u901A\u77E5\u4EA4\u7ED9\u60A8\u7684\u90A3\u4E00\u523B\u751F\u6548\u3002\u5B83\u4E5F\u662F\u7701\u5185\u5C11\u6570\u4EE5\u5929\u800C\u975E\u4EE5\u6708\u8BA1\u7B97\u671F\u9650\u7684\u6CD5\u5F8B\u540E\u679C\u4E4B\u4E00\u3002</p>
+<p>\u7531\u4E8EIRP\u662F\u5728\u8DEF\u8FB9\u800C\u975E\u6CD5\u5EAD\u4E0A\u7B7E\u53D1\u7684\uFF0C\u8BB8\u591A\u53F8\u673A\u8BEF\u4EE5\u4E3A\u65E0\u80FD\u4E3A\u529B\u3002\u4E8B\u5B9E\u5E76\u975E\u5982\u6B64\u3002\u5B58\u5728\u6B63\u5F0F\u7684\u590D\u5BA1\u7A0B\u5E8F\u2014\u2014\u4F46\u53EF\u7528\u7684\u65F6\u95F4\u6781\u5176\u77ED\u6682\u3002\u672C\u6307\u5357\u89E3\u91CAIRP\u5982\u4F55\u8FD0\u4F5C\u3001\u9002\u7528\u54EA\u4E9B\u5904\u7F5A\u4EE5\u53CA\u590D\u5BA1\u7A0B\u5E8F\u5982\u4F55\u8FDB\u884C\u3002</p>
+<div class="alert"><div class="at">7\u5929\u671F\u9650</div><p>\u60A8\u4ECEIRP\u9001\u8FBE\u4E4B\u65E5\u8D77\u53EA\u6709<strong>7\u4E2A\u65E5\u5386\u5929</strong>\u5411RoadSafetyBC\u7533\u8BF7\u590D\u5BA1\u3002\u4E0D\u662F7\u4E2A\u5DE5\u4F5C\u65E5\u2014\u2014\u800C\u662F7\u5929\uFF0C\u5305\u62EC\u5468\u672B\u548C\u8282\u5047\u65E5\u3002\u5982\u679C\u60A8\u8003\u8651\u6297\u8FA9\uFF0C\u8BF7\u7ACB\u5373\u8054\u7CFB\u5F8B\u5E08\u3002\u81F4\u7535\u6211\u4EEC\uFF1A<strong>(604) 433-2445</strong>\u3002</p></div>
+<h2>\u4EC0\u4E48\u662FIRP\uFF1F</h2>
+<p>\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4\u662F\u8B66\u5B98\u6839\u636E\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u300A\u673A\u52A8\u8F66\u8F86\u6CD5\u300B\u7B7E\u53D1\u7684<strong>\u884C\u653F\u5904\u7F5A</strong>\uFF0C\u7531\u673A\u52A8\u8F66\u8F86\u7BA1\u7406\u5C40\u901A\u8FC7RoadSafetyBC\u7BA1\u7406\u3002\u91CD\u8981\u7684\u662F\uFF0CIRP<strong>\u4E0D\u662F\u5211\u4E8B\u6307\u63A7</strong>\u2014\u2014\u83B7\u5F97IRP\u672C\u8EAB\u4E0D\u4F1A\u7ED9\u60A8\u7559\u4E0B\u6848\u5E95\u3002</p>
+<p>\u8B66\u5B98\u53EF\u4EE5\u8981\u6C42\u4EFB\u4F55\u63A7\u5236\u673A\u52A8\u8F66\u8F86\u7684\u53F8\u673A\u5411\u6279\u51C6\u7684\u7B5B\u67E5\u8BBE\u5907(ASD)\u63D0\u4F9B\u547C\u6C14\u6837\u672C\u3002\u8BBE\u5907\u7684\u8BFB\u6570\u51B3\u5B9A\u9002\u7528\u54EA\u79CD\u7981\u9A7E\u4EE4\u3002</p>
+<h2>Warn\u4E0EFail\uFF1A\u4E24\u4E2A\u5173\u952E\u8BFB\u6570</h2>
+<p>\u8BBE\u5907\u4EA7\u751F\u5BFC\u81F4IRP\u7684\u4E24\u79CD\u7ED3\u679C\u4E4B\u4E00\uFF1A</p>
+<ul><li><strong>Warn\uFF08\u8B66\u544A\uFF09</strong>\u2014\u2014\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA6\u5927\u7EA60.05\u81F30.08\u3002Warn\u5BFC\u81F4\u8F83\u77ED\u7981\u9A7E\u4EE4\uFF0C\u4E94\u5E74\u5185\u6BCF\u6B21\u91CD\u72AF\u9012\u589E\u3002</li><li><strong>Fail\uFF08\u4E0D\u5408\u683C\uFF09</strong>\u2014\u2014\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA60.08\u6216\u4EE5\u4E0A\uFF0C\u5BFC\u81F490\u5929\u7981\u9A7E\u4EE4\u3002\u62D2\u7EDD\u63D0\u4F9B\u547C\u6C14\u6837\u672C\u7684<strong>\u540E\u679C\u4E0EFail\u76F8\u540C</strong>\u3002</li></ul>
+<p>\u60A8\u6709\u6743\u8981\u6C42\u5728\u53E6\u4E00\u53F0\u8BBE\u5907\u4E0A\u8FDB\u884C\u7B2C\u4E8C\u6B21\u68C0\u6D4B\uFF0C\u5E76\u4EE5\u8F83\u4F4E\u8BFB\u6570\u4E3A\u51C6\u3002\u8BE5\u6743\u5229\u662F\u5426\u5F97\u5230\u5C0A\u91CD\u662F\u5F8B\u5E08\u4F1A\u5BA1\u67E5\u7684\u4E8B\u9879\u4E4B\u4E00\u3002</p>
+<h2>IRP\u5904\u7F5A\u4E00\u89C8</h2>
+<p>\u540E\u679C\u968F\u8BFB\u6570\u548C\u4EE5\u5F80\u7981\u9A7E\u4EE4\u800C\u9012\u589E\u3002\u4E0B\u8868\u53CD\u6620\u603B\u4F53\u6846\u67B6\uFF0C\u4F46\u5177\u4F53\u7F5A\u6B3E\u548C\u8D39\u7528\u7531\u6CD5\u89C4\u89C4\u5B9A\u5E76\u4E0D\u65F6\u53D8\u5316\u2014\u2014\u8BF7\u59CB\u7EC8\u5411RoadSafetyBC\u786E\u8BA4\u5F53\u524D\u91D1\u989D\u3002</p>
+<div class="tbl-wrap"><table><thead><tr><th>\u8BFB\u6570</th><th>\u7981\u9A7E\u671F\u9650</th><th>\u4E3B\u8981\u540E\u679C</th></tr></thead><tbody>
+<tr><td>Warn\uFF08\u7B2C1\u6B21\uFF09</td><td>3\u5929</td><td>\u7F5A\u6B3E\uFF08\u7EA6$200\uFF09\u3001\u9A7E\u7167\u6062\u590D\u8D39\uFF08\u7EA6$250\uFF09\u3001\u53EF\u80FD\u6263\u8F66</td></tr>
+<tr><td>Warn\uFF08\u7B2C2\u6B21\uFF09</td><td>7\u5929</td><td>\u66F4\u9AD8\u7F5A\u6B3E\u3001\u6062\u590D\u8D39\u3001\u53EF\u80FD\u6263\u8F66</td></tr>
+<tr><td>Warn\uFF08\u7B2C3\u6B21+\uFF09</td><td>30\u5929</td><td>\u66F4\u9AD8\u7F5A\u6B3E\uFF08\u7EA6$400\uFF09\u3001\u5F3A\u5236\u53C2\u52A0\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\u3001\u53EF\u80FD\u5B89\u88C5\u9152\u7CBE\u9501\u3001\u5F3A\u5236\u6263\u8F66</td></tr>
+<tr><td>Fail / \u62D2\u7EDD</td><td>90\u5929</td><td>\u6263\u8F6630\u5929\u3001\u7F5A\u6B3E\uFF08\u7EA6$500\uFF09\u3001\u6062\u590D\u8D39\uFF08\u7EA6$250\uFF09\u3001\u5F3A\u5236\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\u3001\u53EF\u80FD\u5B89\u88C5\u9152\u7CBE\u9501</td></tr>
+</tbody></table></div>
+<p>Fail\u6216\u62D2\u7EDD\u4E5F\u4F1A\u6C38\u4E45\u8BB0\u5F55\u5728\u60A8\u7684\u9A7E\u9A76\u6863\u6848\u4E2D\uFF0C\u5373\u4F7F\u5B83\u4E0D\u662F\u5211\u4E8B\u5B9A\u7F6A\u3002</p>
+<h2>IRP\u7684\u771F\u5B9E\u6210\u672C</h2>
+<p>\u7981\u9A7E\u4EE4\u672C\u8EAB\u53EA\u662F\u5176\u4E2D\u4E00\u90E8\u5206\u3002\u52A0\u4E0A\u62D6\u8F66\u3001\u4ED3\u50A8\u3001\u8BA1\u5212\u8D39\u3001\u6062\u590D\u548C\u4FDD\u9669\u9644\u52A0\u8D39\uFF0C90\u5929IRP\u5E38\u5E38\u8BA9\u53F8\u673A\u82B1\u8D39\u6570\u5343\u7F8E\u5143\u3002\u5178\u578B\u989D\u5916\u8D39\u7528\u5305\u62EC\uFF1A</p>
+<ul><li><strong>\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\uFF08RDP\uFF09</strong>\u2014\u2014\u8865\u6551\u6559\u80B2\u8BA1\u5212\uFF0C\u76EE\u524D\u7EA6$1,200\uFF08\u542B\u7A0E\uFF09\u3002</li><li><strong>\u9152\u7CBE\u9501\u8BA1\u5212\uFF08IIP\uFF09</strong>\u2014\u2014\u5982\u9700\u8981\uFF0C\u8BBE\u5907\u6BCF\u5E74\u7EA6$1,500\u3002</li><li><strong>ICBC\u53F8\u673A\u98CE\u9669\u4FDD\u8D39</strong>\u2014\u2014\u53EF\u80FD\u9002\u7528\u4E09\u5E74\u7684\u4FDD\u9669\u9644\u52A0\u8D39\u3002</li><li><strong>\u62D6\u8F66\u548C30\u5929\u4ED3\u50A8</strong>\u2014\u2014\u7531\u53F8\u673A\u652F\u4ED8\u3002</li></ul>
+<p>\u884C\u4E1A\u4F30\u8BA1\u901A\u5E38\u5C06IRP\u7684\u603B\u6210\u672C\u5B9A\u5728\u77ED\u671FWarn\u7EA6$600\u5230Fail\u7684$4,600\u6216\u66F4\u591A\u4E4B\u95F4\u3002\u5982\u679C\u7981\u9A7E\u4EE4\u5728\u590D\u5BA1\u4E2D\u88AB\u64A4\u9500\uFF0C\u5927\u591A\u6570\u540E\u679C\u4E5F\u968F\u4E4B\u6D88\u5931\u2014\u2014\u8FD9\u5C31\u662F\u590D\u5BA1\u7A0B\u5E8F\u5982\u6B64\u91CD\u8981\u7684\u539F\u56E0\u3002</p>
+<p style="font-size:.92rem;color:var(--muted);">\u8BA1\u5212\u548C\u8BBE\u5907\u8D39\u7528\u7531\u7701\u653F\u5E9C\u89C4\u5B9A\u5E76\u5B9A\u671F\u53D8\u5316\u3002\u6709\u5173\u6700\u65B0\u8D39\u7528\uFF0C\u8BF7\u53C2\u9605\u5B98\u65B9\u6765\u6E90\uFF1A<a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/roadsafetybc/high-risk-driver/responsible-drivers" target="_blank" rel="noopener">Gov.bc.ca \u2013 Responsible Driver Program</a>\u3002</p>
+<h2>\u5982\u4F55\u6297\u8FA9IRP\uFF1A\u590D\u5BA1\u7A0B\u5E8F</h2>
+<p>\u60A8\u4E0D\u9700\u8981\u51FA\u5EAD\u6297\u8FA9IRP\u3002\u76F8\u53CD\uFF0C\u60A8\u7533\u8BF7\u7531RoadSafetyBC\u7684\u88C1\u51B3\u5458\u51B3\u5B9A\u7684\u590D\u5BA1\u3002\u6D41\u7A0B\u5982\u4E0B\uFF1A</p>
+<div class="keybox"><div class="kb-l">\u590D\u5BA1\u7684\u5173\u952E\u4E8B\u5B9E</div><ul>
+<li><strong>\u671F\u9650\uFF1A</strong>\u5728\u9001\u8FBE\u540E7\u4E2A\u65E5\u5386\u5929\u5185\u7533\u8BF7\u3002</li>
+<li><strong>\u5982\u4F55\u7533\u8BF7\uFF1A</strong>\u5728\u7EBF\u6216\u4EB2\u81F4ICBC\u9A7E\u7167\u529E\u516C\u5BA4\u3002</li>
+<li><strong>\u8D39\u7528\uFF1A</strong>\u4E66\u9762\u590D\u5BA1\u7EA6$100\uFF0C\u53E3\u5934\uFF08\u7535\u8BDD\uFF09\u590D\u5BA1\u7EA6$200\u3002</li>
+<li><strong>\u7C7B\u578B\uFF1A</strong>\u4E66\u9762\u590D\u5BA1\u9002\u7528\u4E8E\u6240\u6709IRP\uFF1B\u53E3\u5934\u590D\u5BA1\u901A\u5E38\u4EC5\u9002\u752830\u5929\u548C90\u5929\u7981\u9A7E\u4EE4\u3002</li>
+<li><strong>\u5F62\u5F0F\uFF1A</strong>\u590D\u5BA1\u57FA\u4E8E\u4E66\u9762\u8BC1\u636E\u548C\u9648\u8FF0\u2014\u2014\u6CA1\u6709\u5EAD\u5BA1\u3002</li>
+<li><strong>\u4E3E\u8BC1\u8D23\u4EFB\uFF1A</strong>\u4E3E\u8BC1\u8D23\u4EFB\u5728\u4E8E\u60A8\uFF08\u7533\u8BF7\u4EBA\uFF09\uFF0C\u9700\u8BC1\u660E\u7981\u9A7E\u4EE4\u4E0D\u5E94\u6210\u7ACB\u3002</li>
+</ul></div>
+<p>\u7531\u4E8E\u4E3E\u8BC1\u8D23\u4EFB\u5728\u53F8\u673A\u4E14\u65F6\u95F4\u7D27\u8FEB\uFF0C\u4E66\u9762\u9648\u8FF0\u548C\u8BC1\u636E\u7684\u8D28\u91CF\u5E38\u5E38\u51B3\u5B9A\u7ED3\u679C\u3002\u8FD9\u6B63\u662F\u7ECF\u9A8C\u4E30\u5BCC\u7684\u4EE3\u7406\u4EBA\u5DEE\u5F02\u6700\u5927\u4E4B\u5904\u3002</p>
+<h2>\u6297\u8FA9IRP\u7684\u7406\u7531</h2>
+<p>\u5982\u679C\u6CD5\u5F8B\u8981\u6C42\u672A\u5F97\u5230\u6EE1\u8DB3\uFF0C\u88C1\u51B3\u5458\u53EF\u4EE5\u64A4\u9500IRP\u3002\u5F8B\u5E08\u4F1A\u8C03\u67E5\u7684\u5E38\u89C1\u7406\u7531\u5305\u62EC\uFF1A</p>
+<ul><li>\u8B66\u5B98\u662F\u5426\u6709\u5408\u6CD5\u4F9D\u636E\u8981\u6C42\u547C\u6C14\u6837\u672C\u3002</li><li>\u7B5B\u67E5\u8BBE\u5907\u662F\u5426\u53EF\u9760\u3001\u7EF4\u62A4\u5F97\u5F53\u3001\u6821\u51C6\u6B63\u786E\u3002</li><li>\u60A8\u5728\u53E6\u4E00\u8BBE\u5907\u4E0A\u8FDB\u884C\u7B2C\u4E8C\u6B21\u68C0\u6D4B\u7684\u6743\u5229\u662F\u5426\u5F97\u5230\u5C0A\u91CD\u3002</li><li>\u8BBE\u5907\u662F\u5426\u6B63\u786E\u64CD\u4F5C\u3002</li><li>\u60A8\u662F\u5426\u786E\u5B9E\u662F\u9A7E\u9A76\u8005\u3002</li><li>\u8B66\u5B98\u662F\u5426\u9075\u5FAA\u4E86\u6BCF\u4E00\u9879\u7A0B\u5E8F\u6B65\u9AA4\u3002</li></ul>
+<p>\u5E76\u975E\u6BCF\u4E2A\u6848\u4EF6\u90FD\u6709\u53EF\u884C\u7406\u7531\uFF0C\u8D1F\u8D23\u4EFB\u7684\u5F8B\u5E08\u4F1A\u5728\u60A8\u6295\u5165\u7A0B\u5E8F\u548C\u8D39\u7528\u524D\u5766\u8BDA\u544A\u77E5\u6297\u8FA9\u662F\u5426\u503C\u5F97\u3002</p>
+<h2>\u5982\u679C\u590D\u5BA1\u4E0D\u6210\u529F\uFF1F</h2>
+<p>RoadSafetyBC\u7684\u590D\u5BA1\u51B3\u5B9A\u5728\u884C\u653F\u5C42\u9762\u662F\u6700\u7EC8\u7684\u3002\u5982\u679C\u590D\u5BA1\u88AB\u9A73\u56DE\uFF0C\u552F\u4E00\u9014\u5F84\u662F\u5411\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u6700\u9AD8\u6CD5\u9662\u63D0\u8D77<strong>\u53F8\u6CD5\u590D\u6838</strong>\u3002\u6B64\u9879\u6709\u65F6\u6548\u9650\u5236\uFF0C\u56E0\u6B64\u65F6\u673A\u518D\u6B21\u81F3\u5173\u91CD\u8981\u3002</p>
+<h2>IRP\u4E0E\u5211\u4E8B\u9152\u9A7E\u6307\u63A7</h2>
+<p>\u81EABC\u6269\u5927\u5176\u884C\u653F\u4F53\u7CFB\u4EE5\u6765\uFF0C\u5927\u591A\u6570\u9152\u9A7E\u60C5\u51B5\u73B0\u5728\u901A\u8FC7IRP\u7CFB\u7EDF\u800C\u975E\u5211\u4E8B\u6CD5\u5EAD\u5904\u7406\u3002\u8FD9\u901A\u5E38\u5BF9\u53F8\u673A\u6709\u5229\u2014\u2014\u6CA1\u6709\u6848\u5E95\uFF0C\u89E3\u51B3\u66F4\u5FEB\u3002\u7136\u800C\u4E24\u8005\u5E76\u4E0D\u4E92\u65A5\uFF1A\u60A8\u53EF\u80FD\u56E0\u540C\u4E00\u4E8B\u4EF6\u65E2\u6536\u5230IRP<strong>\u53C8</strong>\u6536\u5230\u5355\u72EC\u7684\u5211\u6CD5\u6307\u63A7\u3002</p>
+<div class="alert" style="background:var(--card);border-color:var(--line);border-left-color:var(--green);"><div class="at">\u540C\u65F6\u9762\u4E34\u5211\u4E8B\u6307\u63A7\uFF1F</div><p>\u5982\u679C\u60A8\u7684\u6848\u4EF6\u6D89\u53CA\u5211\u6CD5\u9152\u9A7E\u6307\u63A7\uFF0C\u6211\u4EEC\u7684\u914D\u5957\u6307\u5357\u89E3\u91CA\u4E86\u7F6A\u540D\u548C\u5B9A\u7F6A\u540E\u7684\u5F3A\u5236\u5904\u7F5A\u3002<a href="dui-impaired-driving-charges-bc.html" style="color:var(--green);font-weight:600;">\u9605\u8BFB\uFF1ABC\u9152\u540E\u9A7E\u9A76(DUI)\u6307\u63A7 \u2192</a></p></div>
+<h2>Edwards &amp; Company\u5982\u4F55\u5E2E\u52A9\u60A8</h2>
+<p>\u6211\u4EEC\u4E8B\u52A1\u6240\u5728\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u548C\u963F\u5C14\u4F2F\u5854\u62E5\u6709\u6570\u5341\u5E74\u8FA9\u62A4\u673A\u52A8\u8F66\u548C\u9152\u9A7E\u6848\u4EF6\u7684\u5BA1\u7406\u7ECF\u9A8C\u3002\u5F53\u60A8\u5C31IRP\u59D4\u6258\u6211\u4EEC\u65F6\uFF0C\u6211\u4EEC\u4ECE\u5934\u5F00\u59CB\u5BA1\u67E5\u7981\u9A7E\u4EE4\uFF0C\u786E\u5B9A\u6700\u6709\u529B\u7684\u7406\u7531\uFF0C\u5E76\u4EE3\u60A8\u51C6\u5907\u590D\u5BA1\u7533\u8BF7\u3002</p>
+<p>\u6700\u91CD\u8981\u7684\u662F\uFF0C\u6211\u4EEC\u884C\u52A8\u8FC5\u901F\uFF0C\u56E0\u4E3A7\u5929\u671F\u9650\u4E0D\u5BB9\u7B49\u5F85\u3002</p>
+<div class="cta"><h3>\u6536\u5230IRP\uFF1F\u4E0D\u8981\u7B49\u5F85\u3002</h3><p>\u7533\u8BF7\u590D\u5BA1\u7684\u671F\u9650\u4EC5\u4E3A\u9001\u8FBE\u4E4B\u65E5\u8D77\u76847\u5929\u3002\u8BF7\u4ECA\u5929\u8054\u7CFB\u6211\u4EEC\u3002</p><div class="cta-btns"><a href="tel:6044332445" class="btn btn-brass">\u81F4\u7535 (604) 433-2445</a><a href="index.html#contact" class="btn btn-ghost">\u53D1\u9001\u4FE1\u606F</a></div></div>
+<div class="faq-block"><h2>\u5E38\u89C1\u95EE\u9898</h2>
+<div class="faq-i"><h3>\u5728BC\u6211\u6709\u591A\u957F\u65F6\u95F4\u6297\u8FA9IRP\uFF1F</h3><p>\u60A8\u81EA\u7981\u9A7E\u4EE4\u9001\u8FBE\u4E4B\u65E5\u8D77\u67097\u4E2A\u65E5\u5386\u5929\u5411RoadSafetyBC\u7533\u8BF7\u590D\u5BA1\u3002\u8FD9\u662F\u4E25\u683C\u7684\u671F\u9650\u3002</p></div>
+<div class="faq-i"><h3>IRP\u662F\u5211\u4E8B\u6307\u63A7\u5417\uFF1F</h3><p>\u4E0D\u662F\u3002IRP\u662F\u300A\u673A\u52A8\u8F66\u8F86\u6CD5\u300B\u4E0B\u7684\u884C\u653F\u5904\u7F5A\uFF0C\u672C\u8EAB\u4E0D\u4EA7\u751F\u6848\u5E95\u3002\u4F46\u5B83\u53EF\u80FD\u4E0E\u5355\u72EC\u7684\u5211\u4E8B\u6307\u63A7\u4E00\u540C\u7B7E\u53D1\u3002</p></div>
+<div class="faq-i"><h3>IRP\u53EF\u4EE5\u88AB\u64A4\u9500\u5417\uFF1F</h3><p>\u53EF\u4EE5\u3002\u5982\u679C\u6CD5\u5F8B\u8981\u6C42\u672A\u5F97\u5230\u6EE1\u8DB3\uFF0C\u88C1\u51B3\u5458\u53EF\u4EE5\u64A4\u9500IRP\u2014\u2014\u4F8B\u5982\u8BBE\u5907\u4E0D\u53EF\u9760\u6216\u65E0\u5408\u6CD5\u4F9D\u636E\u3002</p></div>
+<div class="faq-i"><h3>Fail\u8BFB\u6570\u610F\u5473\u7740\u4EC0\u4E48\uFF1F</h3><p>Fail\u901A\u5E38\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA60.08\u6216\u4EE5\u4E0A\uFF0C\u5BFC\u81F490\u5929\u7981\u9A7E\u4EE4\u300130\u5929\u6263\u8F66\u53CA\u5176\u4ED6\u5904\u7F5A\u3002\u62D2\u7EDD\u63D0\u4F9B\u6837\u672C\u540E\u679C\u76F8\u540C\u3002</p></div>
+</div>
+<div class="disclaimer"><strong>\u514D\u8D23\u58F0\u660E\uFF1A</strong>\u672C\u6587\u63D0\u4F9B\u6709\u5173\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u6CD5\u5F8B\u7684\u4E00\u822C\u4FE1\u606F\uFF0C\u4E0D\u662F\u6CD5\u5F8B\u5EFA\u8BAE\uFF0C\u4E0D\u5EFA\u7ACB\u5F8B\u5E08\u2013\u5F53\u4E8B\u4EBA\u5173\u7CFB\u3002\u5904\u7F5A\u548C\u8D39\u7528\u53EF\u80FD\u53D8\u5316\uFF1B\u6240\u5217\u6570\u5B57\u4EC5\u4E3A\u4F30\u8BA1\uFF0C\u5E94\u5411RoadSafetyBC\u6216\u5F8B\u5E08\u786E\u8BA4\u3002</div>`;
+
+BODY["zh-Hant"]=`<p class="lede">\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4\u2014\u2014\u901A\u5E38\u7B80\u79F0"IRP"\u2014\u2014\u662F\u5982\u4ECA\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u5904\u7406\u9152\u540E\u9A7E\u9A76\u6700\u5E38\u89C1\u7684\u65B9\u5F0F\u3002\u5B83\u5FEB\u901F\u3001\u81EA\u52A8\uFF0C\u5E76\u5728\u8B66\u5B98\u5C06\u901A\u77E5\u4EA4\u7ED9\u60A8\u7684\u90A3\u4E00\u523B\u751F\u6548\u3002\u5B83\u4E5F\u662F\u7701\u5185\u5C11\u6570\u4EE5\u5929\u800C\u975E\u4EE5\u6708\u8BA1\u7B97\u671F\u9650\u7684\u6CD5\u5F8B\u540E\u679C\u4E4B\u4E00\u3002</p>
+<p>\u7531\u4E8EIRP\u662F\u5728\u8DEF\u8FB9\u800C\u975E\u6CD5\u5EAD\u4E0A\u7B7E\u53D1\u7684\uFF0C\u8BB8\u591A\u53F8\u673A\u8BEF\u4EE5\u4E3A\u65E0\u80FD\u4E3A\u529B\u3002\u4E8B\u5B9E\u5E76\u975E\u5982\u6B64\u3002\u5B58\u5728\u6B63\u5F0F\u7684\u590D\u5BA1\u7A0B\u5E8F\u2014\u2014\u4F46\u53EF\u7528\u7684\u65F6\u95F4\u6781\u5176\u77ED\u6682\u3002\u672C\u6307\u5357\u89E3\u91CAIRP\u5982\u4F55\u8FD0\u4F5C\u3001\u9002\u7528\u54EA\u4E9B\u5904\u7F5A\u4EE5\u53CA\u590D\u5BA1\u7A0B\u5E8F\u5982\u4F55\u8FDB\u884C\u3002</p>
+<div class="alert"><div class="at">7\u5929\u671F\u9650</div><p>\u60A8\u4ECEIRP\u9001\u8FBE\u4E4B\u65E5\u8D77\u53EA\u6709<strong>7\u4E2A\u65E5\u5386\u5929</strong>\u5411RoadSafetyBC\u7533\u8BF7\u590D\u5BA1\u3002\u4E0D\u662F7\u4E2A\u5DE5\u4F5C\u65E5\u2014\u2014\u800C\u662F7\u5929\uFF0C\u5305\u62EC\u5468\u672B\u548C\u8282\u5047\u65E5\u3002\u5982\u679C\u60A8\u8003\u8651\u6297\u8FA9\uFF0C\u8BF7\u7ACB\u5373\u8054\u7CFB\u5F8B\u5E08\u3002\u81F4\u7535\u6211\u4EEC\uFF1A<strong>(604) 433-2445</strong>\u3002</p></div>
+<h2>\u4EC0\u4E48\u662FIRP\uFF1F</h2>
+<p>\u5373\u65F6\u8DEF\u8FB9\u7981\u9A7E\u4EE4\u662F\u8B66\u5B98\u6839\u636E\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u300A\u673A\u52A8\u8F66\u8F86\u6CD5\u300B\u7B7E\u53D1\u7684<strong>\u884C\u653F\u5904\u7F5A</strong>\uFF0C\u7531\u673A\u52A8\u8F66\u8F86\u7BA1\u7406\u5C40\u901A\u8FC7RoadSafetyBC\u7BA1\u7406\u3002\u91CD\u8981\u7684\u662F\uFF0CIRP<strong>\u4E0D\u662F\u5211\u4E8B\u6307\u63A7</strong>\u2014\u2014\u83B7\u5F97IRP\u672C\u8EAB\u4E0D\u4F1A\u7ED9\u60A8\u7559\u4E0B\u6848\u5E95\u3002</p>
+<p>\u8B66\u5B98\u53EF\u4EE5\u8981\u6C42\u4EFB\u4F55\u63A7\u5236\u673A\u52A8\u8F66\u8F86\u7684\u53F8\u673A\u5411\u6279\u51C6\u7684\u7B5B\u67E5\u8BBE\u5907(ASD)\u63D0\u4F9B\u547C\u6C14\u6837\u672C\u3002\u8BBE\u5907\u7684\u8BFB\u6570\u51B3\u5B9A\u9002\u7528\u54EA\u79CD\u7981\u9A7E\u4EE4\u3002</p>
+<h2>Warn\u4E0EFail\uFF1A\u4E24\u4E2A\u5173\u952E\u8BFB\u6570</h2>
+<p>\u8BBE\u5907\u4EA7\u751F\u5BFC\u81F4IRP\u7684\u4E24\u79CD\u7ED3\u679C\u4E4B\u4E00\uFF1A</p>
+<ul><li><strong>Warn\uFF08\u8B66\u544A\uFF09</strong>\u2014\u2014\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA6\u5927\u7EA60.05\u81F30.08\u3002Warn\u5BFC\u81F4\u8F83\u77ED\u7981\u9A7E\u4EE4\uFF0C\u4E94\u5E74\u5185\u6BCF\u6B21\u91CD\u72AF\u9012\u589E\u3002</li><li><strong>Fail\uFF08\u4E0D\u5408\u683C\uFF09</strong>\u2014\u2014\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA60.08\u6216\u4EE5\u4E0A\uFF0C\u5BFC\u81F490\u5929\u7981\u9A7E\u4EE4\u3002\u62D2\u7EDD\u63D0\u4F9B\u547C\u6C14\u6837\u672C\u7684<strong>\u540E\u679C\u4E0EFail\u76F8\u540C</strong>\u3002</li></ul>
+<p>\u60A8\u6709\u6743\u8981\u6C42\u5728\u53E6\u4E00\u53F0\u8BBE\u5907\u4E0A\u8FDB\u884C\u7B2C\u4E8C\u6B21\u68C0\u6D4B\uFF0C\u5E76\u4EE5\u8F83\u4F4E\u8BFB\u6570\u4E3A\u51C6\u3002\u8BE5\u6743\u5229\u662F\u5426\u5F97\u5230\u5C0A\u91CD\u662F\u5F8B\u5E08\u4F1A\u5BA1\u67E5\u7684\u4E8B\u9879\u4E4B\u4E00\u3002</p>
+<h2>IRP\u5904\u7F5A\u4E00\u89C8</h2>
+<p>\u540E\u679C\u968F\u8BFB\u6570\u548C\u4EE5\u5F80\u7981\u9A7E\u4EE4\u800C\u9012\u589E\u3002\u4E0B\u8868\u53CD\u6620\u603B\u4F53\u6846\u67B6\uFF0C\u4F46\u5177\u4F53\u7F5A\u6B3E\u548C\u8D39\u7528\u7531\u6CD5\u89C4\u89C4\u5B9A\u5E76\u4E0D\u65F6\u53D8\u5316\u2014\u2014\u8BF7\u59CB\u7EC8\u5411RoadSafetyBC\u786E\u8BA4\u5F53\u524D\u91D1\u989D\u3002</p>
+<div class="tbl-wrap"><table><thead><tr><th>\u8BFB\u6570</th><th>\u7981\u9A7E\u671F\u9650</th><th>\u4E3B\u8981\u540E\u679C</th></tr></thead><tbody>
+<tr><td>Warn\uFF08\u7B2C1\u6B21\uFF09</td><td>3\u5929</td><td>\u7F5A\u6B3E\uFF08\u7EA6$200\uFF09\u3001\u9A7E\u7167\u6062\u590D\u8D39\uFF08\u7EA6$250\uFF09\u3001\u53EF\u80FD\u6263\u8F66</td></tr>
+<tr><td>Warn\uFF08\u7B2C2\u6B21\uFF09</td><td>7\u5929</td><td>\u66F4\u9AD8\u7F5A\u6B3E\u3001\u6062\u590D\u8D39\u3001\u53EF\u80FD\u6263\u8F66</td></tr>
+<tr><td>Warn\uFF08\u7B2C3\u6B21+\uFF09</td><td>30\u5929</td><td>\u66F4\u9AD8\u7F5A\u6B3E\uFF08\u7EA6$400\uFF09\u3001\u5F3A\u5236\u53C2\u52A0\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\u3001\u53EF\u80FD\u5B89\u88C5\u9152\u7CBE\u9501\u3001\u5F3A\u5236\u6263\u8F66</td></tr>
+<tr><td>Fail / \u62D2\u7EDD</td><td>90\u5929</td><td>\u6263\u8F6630\u5929\u3001\u7F5A\u6B3E\uFF08\u7EA6$500\uFF09\u3001\u6062\u590D\u8D39\uFF08\u7EA6$250\uFF09\u3001\u5F3A\u5236\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\u3001\u53EF\u80FD\u5B89\u88C5\u9152\u7CBE\u9501</td></tr>
+</tbody></table></div>
+<p>Fail\u6216\u62D2\u7EDD\u4E5F\u4F1A\u6C38\u4E45\u8BB0\u5F55\u5728\u60A8\u7684\u9A7E\u9A76\u6863\u6848\u4E2D\uFF0C\u5373\u4F7F\u5B83\u4E0D\u662F\u5211\u4E8B\u5B9A\u7F6A\u3002</p>
+<h2>IRP\u7684\u771F\u5B9E\u6210\u672C</h2>
+<p>\u7981\u9A7E\u4EE4\u672C\u8EAB\u53EA\u662F\u5176\u4E2D\u4E00\u90E8\u5206\u3002\u52A0\u4E0A\u62D6\u8F66\u3001\u4ED3\u50A8\u3001\u8BA1\u5212\u8D39\u3001\u6062\u590D\u548C\u4FDD\u9669\u9644\u52A0\u8D39\uFF0C90\u5929IRP\u5E38\u5E38\u8BA9\u53F8\u673A\u82B1\u8D39\u6570\u5343\u7F8E\u5143\u3002\u5178\u578B\u989D\u5916\u8D39\u7528\u5305\u62EC\uFF1A</p>
+<ul><li><strong>\u8D1F\u8D23\u4EFB\u53F8\u673A\u8BA1\u5212\uFF08RDP\uFF09</strong>\u2014\u2014\u8865\u6551\u6559\u80B2\u8BA1\u5212\uFF0C\u76EE\u524D\u7EA6$1,200\uFF08\u542B\u7A0E\uFF09\u3002</li><li><strong>\u9152\u7CBE\u9501\u8BA1\u5212\uFF08IIP\uFF09</strong>\u2014\u2014\u5982\u9700\u8981\uFF0C\u8BBE\u5907\u6BCF\u5E74\u7EA6$1,500\u3002</li><li><strong>ICBC\u53F8\u673A\u98CE\u9669\u4FDD\u8D39</strong>\u2014\u2014\u53EF\u80FD\u9002\u7528\u4E09\u5E74\u7684\u4FDD\u9669\u9644\u52A0\u8D39\u3002</li><li><strong>\u62D6\u8F66\u548C30\u5929\u4ED3\u50A8</strong>\u2014\u2014\u7531\u53F8\u673A\u652F\u4ED8\u3002</li></ul>
+<p>\u884C\u4E1A\u4F30\u8BA1\u901A\u5E38\u5C06IRP\u7684\u603B\u6210\u672C\u5B9A\u5728\u77ED\u671FWarn\u7EA6$600\u5230Fail\u7684$4,600\u6216\u66F4\u591A\u4E4B\u95F4\u3002\u5982\u679C\u7981\u9A7E\u4EE4\u5728\u590D\u5BA1\u4E2D\u88AB\u64A4\u9500\uFF0C\u5927\u591A\u6570\u540E\u679C\u4E5F\u968F\u4E4B\u6D88\u5931\u2014\u2014\u8FD9\u5C31\u662F\u590D\u5BA1\u7A0B\u5E8F\u5982\u6B64\u91CD\u8981\u7684\u539F\u56E0\u3002</p>
+<p style="font-size:.92rem;color:var(--muted);">\u8BA1\u5212\u548C\u8BBE\u5907\u8D39\u7528\u7531\u7701\u653F\u5E9C\u89C4\u5B9A\u5E76\u5B9A\u671F\u53D8\u5316\u3002\u6709\u5173\u6700\u65B0\u8D39\u7528\uFF0C\u8BF7\u53C2\u9605\u5B98\u65B9\u6765\u6E90\uFF1A<a href="https://www2.gov.bc.ca/gov/content/transportation/driving-and-cycling/roadsafetybc/high-risk-driver/responsible-drivers" target="_blank" rel="noopener">Gov.bc.ca \u2013 Responsible Driver Program</a>\u3002</p>
+<h2>\u5982\u4F55\u6297\u8FA9IRP\uFF1A\u590D\u5BA1\u7A0B\u5E8F</h2>
+<p>\u60A8\u4E0D\u9700\u8981\u51FA\u5EAD\u6297\u8FA9IRP\u3002\u76F8\u53CD\uFF0C\u60A8\u7533\u8BF7\u7531RoadSafetyBC\u7684\u88C1\u51B3\u5458\u51B3\u5B9A\u7684\u590D\u5BA1\u3002\u6D41\u7A0B\u5982\u4E0B\uFF1A</p>
+<div class="keybox"><div class="kb-l">\u590D\u5BA1\u7684\u5173\u952E\u4E8B\u5B9E</div><ul>
+<li><strong>\u671F\u9650\uFF1A</strong>\u5728\u9001\u8FBE\u540E7\u4E2A\u65E5\u5386\u5929\u5185\u7533\u8BF7\u3002</li>
+<li><strong>\u5982\u4F55\u7533\u8BF7\uFF1A</strong>\u5728\u7EBF\u6216\u4EB2\u81F4ICBC\u9A7E\u7167\u529E\u516C\u5BA4\u3002</li>
+<li><strong>\u8D39\u7528\uFF1A</strong>\u4E66\u9762\u590D\u5BA1\u7EA6$100\uFF0C\u53E3\u5934\uFF08\u7535\u8BDD\uFF09\u590D\u5BA1\u7EA6$200\u3002</li>
+<li><strong>\u7C7B\u578B\uFF1A</strong>\u4E66\u9762\u590D\u5BA1\u9002\u7528\u4E8E\u6240\u6709IRP\uFF1B\u53E3\u5934\u590D\u5BA1\u901A\u5E38\u4EC5\u9002\u752830\u5929\u548C90\u5929\u7981\u9A7E\u4EE4\u3002</li>
+<li><strong>\u5F62\u5F0F\uFF1A</strong>\u590D\u5BA1\u57FA\u4E8E\u4E66\u9762\u8BC1\u636E\u548C\u9648\u8FF0\u2014\u2014\u6CA1\u6709\u5EAD\u5BA1\u3002</li>
+<li><strong>\u4E3E\u8BC1\u8D23\u4EFB\uFF1A</strong>\u4E3E\u8BC1\u8D23\u4EFB\u5728\u4E8E\u60A8\uFF08\u7533\u8BF7\u4EBA\uFF09\uFF0C\u9700\u8BC1\u660E\u7981\u9A7E\u4EE4\u4E0D\u5E94\u6210\u7ACB\u3002</li>
+</ul></div>
+<p>\u7531\u4E8E\u4E3E\u8BC1\u8D23\u4EFB\u5728\u53F8\u673A\u4E14\u65F6\u95F4\u7D27\u8FEB\uFF0C\u4E66\u9762\u9648\u8FF0\u548C\u8BC1\u636E\u7684\u8D28\u91CF\u5E38\u5E38\u51B3\u5B9A\u7ED3\u679C\u3002\u8FD9\u6B63\u662F\u7ECF\u9A8C\u4E30\u5BCC\u7684\u4EE3\u7406\u4EBA\u5DEE\u5F02\u6700\u5927\u4E4B\u5904\u3002</p>
+<h2>\u6297\u8FA9IRP\u7684\u7406\u7531</h2>
+<p>\u5982\u679C\u6CD5\u5F8B\u8981\u6C42\u672A\u5F97\u5230\u6EE1\u8DB3\uFF0C\u88C1\u51B3\u5458\u53EF\u4EE5\u64A4\u9500IRP\u3002\u5F8B\u5E08\u4F1A\u8C03\u67E5\u7684\u5E38\u89C1\u7406\u7531\u5305\u62EC\uFF1A</p>
+<ul><li>\u8B66\u5B98\u662F\u5426\u6709\u5408\u6CD5\u4F9D\u636E\u8981\u6C42\u547C\u6C14\u6837\u672C\u3002</li><li>\u7B5B\u67E5\u8BBE\u5907\u662F\u5426\u53EF\u9760\u3001\u7EF4\u62A4\u5F97\u5F53\u3001\u6821\u51C6\u6B63\u786E\u3002</li><li>\u60A8\u5728\u53E6\u4E00\u8BBE\u5907\u4E0A\u8FDB\u884C\u7B2C\u4E8C\u6B21\u68C0\u6D4B\u7684\u6743\u5229\u662F\u5426\u5F97\u5230\u5C0A\u91CD\u3002</li><li>\u8BBE\u5907\u662F\u5426\u6B63\u786E\u64CD\u4F5C\u3002</li><li>\u60A8\u662F\u5426\u786E\u5B9E\u662F\u9A7E\u9A76\u8005\u3002</li><li>\u8B66\u5B98\u662F\u5426\u9075\u5FAA\u4E86\u6BCF\u4E00\u9879\u7A0B\u5E8F\u6B65\u9AA4\u3002</li></ul>
+<p>\u5E76\u975E\u6BCF\u4E2A\u6848\u4EF6\u90FD\u6709\u53EF\u884C\u7406\u7531\uFF0C\u8D1F\u8D23\u4EFB\u7684\u5F8B\u5E08\u4F1A\u5728\u60A8\u6295\u5165\u7A0B\u5E8F\u548C\u8D39\u7528\u524D\u5766\u8BDA\u544A\u77E5\u6297\u8FA9\u662F\u5426\u503C\u5F97\u3002</p>
+<h2>\u5982\u679C\u590D\u5BA1\u4E0D\u6210\u529F\uFF1F</h2>
+<p>RoadSafetyBC\u7684\u590D\u5BA1\u51B3\u5B9A\u5728\u884C\u653F\u5C42\u9762\u662F\u6700\u7EC8\u7684\u3002\u5982\u679C\u590D\u5BA1\u88AB\u9A73\u56DE\uFF0C\u552F\u4E00\u9014\u5F84\u662F\u5411\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u6700\u9AD8\u6CD5\u9662\u63D0\u8D77<strong>\u53F8\u6CD5\u590D\u6838</strong>\u3002\u6B64\u9879\u6709\u65F6\u6548\u9650\u5236\uFF0C\u56E0\u6B64\u65F6\u673A\u518D\u6B21\u81F3\u5173\u91CD\u8981\u3002</p>
+<h2>IRP\u4E0E\u5211\u4E8B\u9152\u9A7E\u6307\u63A7</h2>
+<p>\u81EABC\u6269\u5927\u5176\u884C\u653F\u4F53\u7CFB\u4EE5\u6765\uFF0C\u5927\u591A\u6570\u9152\u9A7E\u60C5\u51B5\u73B0\u5728\u901A\u8FC7IRP\u7CFB\u7EDF\u800C\u975E\u5211\u4E8B\u6CD5\u5EAD\u5904\u7406\u3002\u8FD9\u901A\u5E38\u5BF9\u53F8\u673A\u6709\u5229\u2014\u2014\u6CA1\u6709\u6848\u5E95\uFF0C\u89E3\u51B3\u66F4\u5FEB\u3002\u7136\u800C\u4E24\u8005\u5E76\u4E0D\u4E92\u65A5\uFF1A\u60A8\u53EF\u80FD\u56E0\u540C\u4E00\u4E8B\u4EF6\u65E2\u6536\u5230IRP<strong>\u53C8</strong>\u6536\u5230\u5355\u72EC\u7684\u5211\u6CD5\u6307\u63A7\u3002</p>
+<div class="alert" style="background:var(--card);border-color:var(--line);border-left-color:var(--green);"><div class="at">\u540C\u65F6\u9762\u4E34\u5211\u4E8B\u6307\u63A7\uFF1F</div><p>\u5982\u679C\u60A8\u7684\u6848\u4EF6\u6D89\u53CA\u5211\u6CD5\u9152\u9A7E\u6307\u63A7\uFF0C\u6211\u4EEC\u7684\u914D\u5957\u6307\u5357\u89E3\u91CA\u4E86\u7F6A\u540D\u548C\u5B9A\u7F6A\u540E\u7684\u5F3A\u5236\u5904\u7F5A\u3002<a href="dui-impaired-driving-charges-bc.html" style="color:var(--green);font-weight:600;">\u9605\u8BFB\uFF1ABC\u9152\u540E\u9A7E\u9A76(DUI)\u6307\u63A7 \u2192</a></p></div>
+<h2>Edwards &amp; Company\u5982\u4F55\u5E2E\u52A9\u60A8</h2>
+<p>\u6211\u4EEC\u4E8B\u52A1\u6240\u5728\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u548C\u963F\u5C14\u4F2F\u5854\u62E5\u6709\u6570\u5341\u5E74\u8FA9\u62A4\u673A\u52A8\u8F66\u548C\u9152\u9A7E\u6848\u4EF6\u7684\u5BA1\u7406\u7ECF\u9A8C\u3002\u5F53\u60A8\u5C31IRP\u59D4\u6258\u6211\u4EEC\u65F6\uFF0C\u6211\u4EEC\u4ECE\u5934\u5F00\u59CB\u5BA1\u67E5\u7981\u9A7E\u4EE4\uFF0C\u786E\u5B9A\u6700\u6709\u529B\u7684\u7406\u7531\uFF0C\u5E76\u4EE3\u60A8\u51C6\u5907\u590D\u5BA1\u7533\u8BF7\u3002</p>
+<p>\u6700\u91CD\u8981\u7684\u662F\uFF0C\u6211\u4EEC\u884C\u52A8\u8FC5\u901F\uFF0C\u56E0\u4E3A7\u5929\u671F\u9650\u4E0D\u5BB9\u7B49\u5F85\u3002</p>
+<div class="cta"><h3>\u6536\u5230IRP\uFF1F\u4E0D\u8981\u7B49\u5F85\u3002</h3><p>\u7533\u8BF7\u590D\u5BA1\u7684\u671F\u9650\u4EC5\u4E3A\u9001\u8FBE\u4E4B\u65E5\u8D77\u76847\u5929\u3002\u8BF7\u4ECA\u5929\u8054\u7CFB\u6211\u4EEC\u3002</p><div class="cta-btns"><a href="tel:6044332445" class="btn btn-brass">\u81F4\u7535 (604) 433-2445</a><a href="index.html#contact" class="btn btn-ghost">\u53D1\u9001\u4FE1\u606F</a></div></div>
+<div class="faq-block"><h2>\u5E38\u89C1\u95EE\u9898</h2>
+<div class="faq-i"><h3>\u5728BC\u6211\u6709\u591A\u957F\u65F6\u95F4\u6297\u8FA9IRP\uFF1F</h3><p>\u60A8\u81EA\u7981\u9A7E\u4EE4\u9001\u8FBE\u4E4B\u65E5\u8D77\u67097\u4E2A\u65E5\u5386\u5929\u5411RoadSafetyBC\u7533\u8BF7\u590D\u5BA1\u3002\u8FD9\u662F\u4E25\u683C\u7684\u671F\u9650\u3002</p></div>
+<div class="faq-i"><h3>IRP\u662F\u5211\u4E8B\u6307\u63A7\u5417\uFF1F</h3><p>\u4E0D\u662F\u3002IRP\u662F\u300A\u673A\u52A8\u8F66\u8F86\u6CD5\u300B\u4E0B\u7684\u884C\u653F\u5904\u7F5A\uFF0C\u672C\u8EAB\u4E0D\u4EA7\u751F\u6848\u5E95\u3002\u4F46\u5B83\u53EF\u80FD\u4E0E\u5355\u72EC\u7684\u5211\u4E8B\u6307\u63A7\u4E00\u540C\u7B7E\u53D1\u3002</p></div>
+<div class="faq-i"><h3>IRP\u53EF\u4EE5\u88AB\u64A4\u9500\u5417\uFF1F</h3><p>\u53EF\u4EE5\u3002\u5982\u679C\u6CD5\u5F8B\u8981\u6C42\u672A\u5F97\u5230\u6EE1\u8DB3\uFF0C\u88C1\u51B3\u5458\u53EF\u4EE5\u64A4\u9500IRP\u2014\u2014\u4F8B\u5982\u8BBE\u5907\u4E0D\u53EF\u9760\u6216\u65E0\u5408\u6CD5\u4F9D\u636E\u3002</p></div>
+<div class="faq-i"><h3>Fail\u8BFB\u6570\u610F\u5473\u7740\u4EC0\u4E48\uFF1F</h3><p>Fail\u901A\u5E38\u5BF9\u5E94\u8840\u6DB2\u9152\u7CBE\u6D53\u5EA60.08\u6216\u4EE5\u4E0A\uFF0C\u5BFC\u81F490\u5929\u7981\u9A7E\u4EE4\u300130\u5929\u6263\u8F66\u53CA\u5176\u4ED6\u5904\u7F5A\u3002\u62D2\u7EDD\u63D0\u4F9B\u6837\u672C\u540E\u679C\u76F8\u540C\u3002</p></div>
+</div>
+<div class="disclaimer"><strong>\u514D\u8D23\u58F0\u660E\uFF1A</strong>\u672C\u6587\u63D0\u4F9B\u6709\u5173\u4E0D\u5217\u98A0\u54E5\u4F26\u6BD4\u4E9A\u6CD5\u5F8B\u7684\u4E00\u822C\u4FE1\u606F\uFF0C\u4E0D\u662F\u6CD5\u5F8B\u5EFA\u8BAE\uFF0C\u4E0D\u5EFA\u7ACB\u5F8B\u5E08\u2013\u5F53\u4E8B\u4EBA\u5173\u7CFB\u3002\u5904\u7F5A\u548C\u8D39\u7528\u53EF\u80FD\u53D8\u5316\uFF1B\u6240\u5217\u6570\u5B57\u4EC5\u4E3A\u4F30\u8BA1\uFF0C\u5E94\u5411RoadSafetyBC\u6216\u5F8B\u5E08\u786E\u8BA4\u3002</div>`;
+
+function applyArticleLang(lang){
+  var hero=document.getElementById('artHero'), body=document.getElementById('artBody'), note=document.getElementById('xlateNote');
+  if(!ART_EN.hero){ ART_EN.hero=hero.innerHTML; ART_EN.body=body.innerHTML; }
+  if(lang==='en'){
+    hero.innerHTML=ART_EN.hero; body.innerHTML=ART_EN.body;
+    if(note){note.classList.remove('show'); note.innerHTML='';}
+  } else {
+    if(HERO[lang]) hero.innerHTML=HERO[lang];
+    if(BODY[lang]) body.innerHTML=BODY[lang];
+    if(note && XNOTE[lang]){ note.innerHTML=XNOTE[lang]; note.classList.add('show'); }
+  }
+  // translate the "Back to Home" chrome
+  var back=document.querySelector('[data-i18n="back_home"]');
+  if(back){ var bt={en:"Back to Home",vi:"V\u1EC1 Trang ch\u1EE7","zh-Hans":"\u8FD4\u56DE\u9996\u9875","zh-Hant":"\u8FD4\u56DE\u9996\u9801"}; back.textContent=bt[lang]||bt.en; }
+  document.documentElement.setAttribute('lang', lang);
+  var cur=document.getElementById('langCurrent'); if(cur) cur.textContent=LANG_LABEL[lang]||'EN';
+  document.querySelectorAll('[data-lang]').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang')===lang); });
+  try{ localStorage.setItem('site_lang', lang); }catch(e){}
+}
+var ART_EN={};
+(function(){
+  var lb=document.getElementById('langBtn'), lm=document.getElementById('langMenu');
+  if(lb&&lm){
+    lb.addEventListener('click',function(e){e.stopPropagation();lm.classList.toggle('open');});
+    document.addEventListener('click',function(){lm.classList.remove('open');});
+    lm.addEventListener('click',function(e){e.stopPropagation();});
+  }
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click',function(){ applyArticleLang(b.getAttribute('data-lang')); if(lm) lm.classList.remove('open'); });
+  });
+  var saved='en'; try{ saved=localStorage.getItem('site_lang')||'en'; }catch(e){}
+  if(saved!=='en') applyArticleLang(saved);
+})();
+</script>
 </body>
 </html>
